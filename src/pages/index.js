@@ -41,7 +41,7 @@ const IndexPage = ({ data }) => {
         <About content={data.about.edges} />
         <Interests content={data.interests.edges} />
         <Projects content={data.projects.edges} />
-        <Contact content={data.contact.edges} />
+        {/* <Contact content={data.contact.edges} /> */}
       </Layout>
     </GlobalStateProvider>
   )
