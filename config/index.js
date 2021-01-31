@@ -83,6 +83,7 @@ module.exports = {
         url: "/#projects",
       },
     ],
+    hasButton: false,
     button: {
       name: "",
       url: "/",
