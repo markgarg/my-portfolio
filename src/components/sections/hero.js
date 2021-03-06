@@ -206,7 +206,7 @@ const Hero = ({ content }) => {
             <motion.div
               className="inner-wrapper"
               ref={tRef}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 20 }}
               animate={tControls}
             >
               <div className="description">
@@ -216,7 +216,7 @@ const Hero = ({ content }) => {
             <motion.div
               className="image-content"
               ref={iRef}
-              initial={{ opacity: 1, x: 20 }}
+              initial={{ opacity: 1, x: 0 }}
               animate={iControls}
             >
               <Img
