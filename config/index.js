@@ -89,14 +89,5 @@ module.exports = {
       url: "/",
     },
   },
-  footerLinks: [
-    {
-      name: "Privacy",
-      url: "/privacy",
-    },
-    // {
-    //   name: "Imprint",
-    //   url: "/imprint",
-    // },
-  ],
+  footerLinks: [],
 }

@@ -121,12 +121,7 @@ const Header = () => {
     <StyledHeader initial={{ opacity: 0, y: -10 }} animate={controls}>
       {/* add blur class to body when sidebar is opened */}
       <Helmet bodyAttributes={{ class: open ? "blur" : "" }} />
-      <StyledContentWrapper>
-        {/* <Link to="/" aria-label="home">
-          <Logo color="primary" size="2rem" />
-        </Link> */}
-        {/* {navigation} */}
-      </StyledContentWrapper>
+      <StyledContentWrapper></StyledContentWrapper>
     </StyledHeader>
   )
 }
