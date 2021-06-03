@@ -1,172 +1,193 @@
-# Gatsby Starter Portfolio Minimal
+<h1 align="center">
+    <img alt="Lumen" title="Lumen" src="https://github.com/alxshelepenok/gatsby-starter-lumen/blob/gatsby-v2/.github/logo.png" width="140"> </br>
+    Lumen
+</h1>
 
-#### A modern one-page portfolio with a clean yet expressive design.
+<h4 align="center">
+  A constantly evolving and thoughtful architecture for creating new static blogs.
+</h4>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Netlify Status](https://api.netlify.com/api/v1/badges/16b36180-0897-40c5-925c-fefa0232555c/deploy-status)](https://app.netlify.com/sites/gatsby-starter-portfolio-minimal/deploys)
+<p align="center">
+    <a target="_blank" href="https://circleci.com/gh/alxshelepenok/gatsby-starter-lumen"><img src="https://circleci.com/gh/alxshelepenok/gatsby-starter-lumen.svg?style=svg"></a> <a target="_blank" href="https://codecov.io/gh/alxshelepenok/gatsby-starter-lumen"><img src="https://codecov.io/gh/alxshelepenok/gatsby-starter-lumen/branch/master/graph/badge.svg"></a> <a target="_blank" href="https://www.codacy.com/app/alxshelepenok/gatsby-starter-lumen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alxshelepenok/gatsby-starter-lumen&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/f7e27bb3a28a46a6b13453a02801c5c9"></a> <a target="_blank" href="https://codeclimate.com/github/alxshelepenok/gatsby-starter-lumen"><img src="https://img.shields.io/codeclimate/maintainability/alxshelepenok/gatsby-starter-lumen.svg"></a> <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Falxshelepenok%2Fgatsby-starter-lumen?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Falxshelepenok%2Fgatsby-starter-lumen.svg?type=shield"/></a>
+</p>
 
-Portfolio Minimal is a Gatsby Starter. Starters are boilerplate projects that can be used to set up new sites effortless. With this starter, you can create a modern one-page portfolio within minutes.
-
-Just install the starter, add your content, and there you go!
-
-<a href="#sections">Sections</a> · <a href="#features">Features</a> · <a href="#how-to-start">How to Start</a> · <a href="#edit-content">Edit Content</a> · <a href="#edit-theme">Edit Theme</a> · <a href="#edit-page-structure">Edit Page Structure</a> · <a href="#feedback">Feedback</a>
-
-<a href="https://gatsby-starter-portfolio-minimal.netlify.app/" target="_blank"><strong>>> LIVE DEMO</strong></a>
-
-<a href="https://konstantin.digital/" target="_blank"><strong>>> LIVE DEMO (with Splash Screen)</strong></a>
-
-**New Features:** 🌛 Dark Mode · 🪟 Splash Screen
-
----
-
-<img src="screenshot.png" alt="Gatsby Starter Portfolio Minimal Screenshot" width="600" />
-
----
-
-## Sections
-
-The starter has predefined sections as well as a template that you can use to create new, custom sections.
-
-**The predefined sections are:**
-
-1. About me
-2. Interests/Skills
-3. Projects
-4. Contact me
-5. Medium articles
-
----
+## Table of contents
++ [Features](http://github.com/alxshelepenok/gatsby-starter-lumen#features)
++ [Web Performance Tests](http://github.com/alxshelepenok/gatsby-starter-lumen#web-performance-tests)
++ [Quick Start](http://github.com/alxshelepenok/gatsby-starter-lumen#quick-start)
++ [Deploy with Netlify](http://github.com/alxshelepenok/gatsby-starter-lumen#deploy-with-netlify)
++ [Folder Structure](http://github.com/alxshelepenok/gatsby-starter-lumen#folder-structure)
++ [Sponsors](http://github.com/alxshelepenok/gatsby-starter-lumen#sponsors)
++ [Contributors](http://github.com/alxshelepenok/gatsby-starter-lumen#contributors)
++ [License](http://github.com/alxshelepenok/gatsby-starter-lumen#license)
 
 ## Features
++ [Lost Grid](http://lostgrid.org).
++ [Modern font stack](https://bitsofco.de/the-new-system-font-stack).
++ Beautiful typography inspired by [matejlatin/Gutenberg](https://github.com/matejlatin/Gutenberg).
++ Syntax highlighting in code blocks using [PrismJS](http://prismjs.com).
++ [Mobile-First](https://medium.com/@mrmrs_/mobile-first-css-48bc4cc3f60f) approach in development.
++ Archive organized by tags and categories.
++ Pagination support.
++ [Netlify CMS](https://www.netlifycms.org) support.
++ Google Analytics.
++ Disqus Comments.
++ [Flow](https://flow.org/) static type checking.
 
-#### 🌛 [NEW] Dark Mode - Based on user's preferences.
+## Web Performance Tests
++ Lighthouse Report - [WebPageTest](https://www.webpagetest.org/result/190510_FE_3f2b13d0beed320f477467d433f56f43/)
++ Visual Comparison - [WebPageTest](https://www.webpagetest.org/video/compare.php?tests=190510_KZ_1228c343ccf04148619a5d0b89a41f71,190510_RE_b3bfad442f32c690a9f420fe46025b8d,190510_RS_3b5f0bff2d95161351dc6934cadbf1cf,190510_SC_5c458c451941f81b12911ccf4171a817,190510_63_52d5edd8743773815fbacb2e9c66d228,190510_AS_741b29f5af5a6e54980d82826d7bb5bb)
 
-If the user's OS is set to using dark mode, the Gatsby Starter will automatically switch to a dark theme too.
+## Quick Start
 
-#### 🕹️ Quick and Easy Setup - Add content and deloy.
+#### Create a Gatsby site
 
-Just install the starter, add your content, and deploy it! This starter works seamlessly with hosts like Netlify.
+Use the Gatsby CLI to create a new site, specifying the Lumen starter.
 
-#### 📓 Content Integration via MDX - No external CMS needed.
-
-MDX is a Markdown format that allows you to enrich your content with React components. This makes it fully customizable without external dependencies.
-
-#### 🧰 Extendable Layout - Add more sections as you like.
-
-The starter includes predefined sections as well as a template for new, custom sections. Moreover, you can add new projects to the project section without additional coding.
-
-#### 💅 Responsive Design - With freshening animations.
-
-The starter is designed with a mobile-first approach and looks perfect on small and large breakpoints. Moreover, it has some nice and smooth animations.
-
-#### <img src="http://logok.org/wp-content/uploads/2015/10/Medium-logo-old.png" alt="Medium Icon" width="20" /> Medium Integration - Features latest articles.
-
-In case you are a writer on Medium, the starter has a easy to use Medium integration that allows you to feature your latest articles.
-
-To see all features in action, have a look at the <a href="https://gatsby-starter-portfolio-minimal.netlify.app/" target="_blank"><strong>live demo</strong></a>.
-
----
-
-## How to Start
-
-With Portfolio Minimal, you get up and running in just a few minutes.
-
-1. **Install the Gatsby CLI.**
-
-   ```
-   npm install -g gatsby-cli
-
-   ```
-
-2. **Create a new Gatsby site with the Portfolio Minimal starter.**
-
-   ```
-   gatsby new portfolio-minimal https://github.com/konstantinmuenster/gatsby-starter-portfolio-minimal
-   ```
-
-3. **Start the site in `develop` mode.**
-
-   ```
-   cd portfolio-minimal
-   gatsby develop
-   ```
-
-4. **Open the source code and start editing!**
-
----
-
-## Edit Content
-
-After you installed the starter project, you most likely want to add your own content.
-
-### Edit configuration
-
-First, you want to edit the config file which stores the site's configuration (e.g. title, description) and social profiles.
-
-```
-|-- config
-    |-- index.js
+```sh
+# Create a new Gatsby site using the Lumen starter
+gatsby new blog https://github.com/alxshelepenok/gatsby-starter-lumen
 ```
 
-Navigate to the `index.js` file in the config folder, edit the configuration, save it, that's it!
+#### Start Developing
 
-### Edit page content
+Navigate into your new site’s directory and start it up.
 
-Next, you can edit the content for each section you want to be displayed. By default, all sections are shown. If you want to remove certain sections from the site, check out <a href="#editing-page-structure">this part of the Readme</a>.
-
-```
-|-- content
-    |-- imprint
-    |-- index
-       |-- about
-       |-- contact
-       ...
-    ...
+```sh
+cd blog
+gatsby develop
 ```
 
-You find all content in the content folder (surprisingly). For content integration, the project uses MDX, a Markdown format. If you haven't worked with Markdown or MDX before, check the Markdown syntax in <a href="https://www.gatsbyjs.org/docs/mdx/markdown-syntax/" target="_blank">Gatsby's docs</a>. They also provide <a href="https://www.gatsbyjs.org/docs/mdx/writing-pages/" target="_blank">further information about MDX</a>.
+#### Open the source code and start editing!
 
-To get up and running, just edit the predefined data fields in each `mdx` file.
+Your site is now running at `http://localhost:8000`!
 
----
+Note: You'll also see a second link: `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).
 
-## Edit Theme
+Open the `blog` directory in your code editor of choice and edit `src/templates/index-template.js`. Save your changes and the browser will update in real time!
 
-You find the color and font settings in the configuration file, located at: `config/index.js`.
+## Deploy with Netlify
 
-> Note: The usage of the splash screen can be set for each page individually in the page content directory.
+[Netlify](https://netlify.com) CMS can run in any frontend web environment, but the quickest way to try it out is by running it on a pre-configured starter site with Netlify. Use the button below to build and deploy your own copy of the repository:
 
----
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/alxshelepenok/gatsby-starter-lumen" target="_blank"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
 
-## Edit Page Structure
+After clicking that button, you’ll authenticate with GitHub and choose a repository name. Netlify will then automatically create a repository in your GitHub account with a copy of the files from the template. Next, it will build and deploy the new site on Netlify, bringing you to the site dashboard when the build is complete. Next, you’ll need to set up Netlify’s Identity service to authorize users to log in to the CMS.
 
-To remove or reorder predefined sections, navigate to the `src/pages/index.js` file. This is the home page of your site.
+## Deploy to Github Pages
 
-Each section (besides the Articles section) exists of an imported React component and a GraphQL query that is needed for data querying.
+To deploy to github pages, simply do the following:
 
-**If you want to remove a section**, just delete the imported React component and query.
+- Ensure that your `package.json` file correctly reflects where this repo lives
+- Change the `pathPrefix` in your `config.js`
+- Run the standard deploy command
 
-**If you want to reorder your sections**, just reorder the React components inside the `<Layout />` component.
+```sh
+yarn deploy
+```
 
-### Add custom sections
 
-If you want to add your own custom sections, there is a section template you can use. You can find it in the following directory: `src/components/templates`
+#### Access Locally
+```
+$ git clone https://github.com/[GITHUB_USERNAME]/[REPO_NAME].git
+$ cd [REPO_NAME]
+$ yarn
+$ yarn develop
+```
+To test the CMS locally, you'll need run a production build of the site:
+```
+$ yarn build
+$ gatsby serve
+```
 
----
+## Folder Structure
 
-## Feedback
+```
+└── content
+    ├── pages
+    └── posts
+└── static
+    ├── admin
+    └── media
+└── src
+    ├── assets
+    │   └── scss
+    │       ├── base
+    │       └── mixins
+    ├── cms
+    │   └── preview-templates
+    ├── components
+    │   ├── Feed
+    │   ├── Icon
+    │   ├── Layout
+    │   ├── Page
+    │   ├── Pagination
+    │   ├── Post
+    │   │   ├── Author
+    │   │   ├── Comments
+    │   │   ├── Content
+    │   │   ├── Meta
+    │   │   └── Tags
+    │   └── Sidebar
+    │       ├── Author
+    │       ├── Contacts
+    │       ├── Copyright
+    │       └── Menu
+    ├── constants
+    ├── templates
+    └── utils
 
-Designing and building a portfolio from scratch can be tough. To inspire you and provide you a foundation to build upon, I've decided to publish [my personal website](https://konstantin.digital) as a Gatsby Starter. This boilerplate project should motivate you to build your own awesome portfolio with Gatsby.
+```
 
-I always appreciate feedback, so share your thoughts and suggestions with me: [mail@konstantin.digital](mailto:mail@konstantin.digital)
+## Sponsors
 
-If you find any bugs or have feature suggestions, create a new issue or pull request 🙏
+Development efforts are supported by the sponsors. I'm very grateful for their donations, please check them out!
 
-Thanks a lot for using this starter! 💪
+| <a href="https://jetbrains.com" target="_blank"><img width="100" src="https://raw.githubusercontent.com/JetBrains/logos/master/web/jetbrains/jetbrains.svg"></a>  | <a href="https://www.browserstack.com" target="_blank"><img width="250" src="https://gist.githubusercontent.com/alxshelepenok/94cbc6dc4a2cb8167ee188ddab33893a/raw/f869c9a67db7bfd5440a49178195efe811d8f7d8/browserstack.svg"></a> | <a href="https://sentry.io" target="_blank"><img width="250" src="https://gist.githubusercontent.com/alxshelepenok/1a74dbe123b2f7ad538f41c94e2da0a2/raw/aaeb3b38ef0873bae1f23f3605696b4e65362e67/sentry.svg"></a> |
+:---: |:---: |:---: |
 
----
+## Contributors
+Thanks goes to these wonderful people!
+
+[<img alt="vzhou842" src="https://avatars3.githubusercontent.com/u/10209814?v=4&s=117" width="117">](https://github.com/vzhou842) |[<img alt="alehel" src="https://avatars2.githubusercontent.com/u/22277624?v=4&s=117" width="117">](https://github.com/alehel) |[<img alt="abisz" src="https://avatars3.githubusercontent.com/u/7287780?v=4&s=117" width="117">](https://github.com/abisz) |[<img alt="remi-bruguier" src="https://avatars0.githubusercontent.com/u/7031328?v=4&s=117" width="117">](https://github.com/remi-bruguier) |[<img alt="mariolopjr" src="https://avatars3.githubusercontent.com/u/2067324?v=4&s=117" width="117">](https://github.com/mariolopjr) |[<img alt="ihororlovskyi" src="https://avatars3.githubusercontent.com/u/7969737?v=4&s=117" width="117">](https://github.com/ihororlovskyi) |
+:---: |:---: |:---: |:---: |:---: |:---: |
+[vzhou842](https://github.com/vzhou842) |[alehel](https://github.com/alehel) |[abisz](https://github.com/abisz) |[remi-bruguier](https://github.com/remi-bruguier) |[mariolopjr](https://github.com/mariolopjr) |[ihororlovskyi](https://github.com/ihororlovskyi) |
+
+[<img alt="timbroder" src="https://avatars2.githubusercontent.com/u/121503?v=4&s=117" width="117">](https://github.com/timbroder) |[<img alt="vinnymac" src="https://avatars0.githubusercontent.com/u/1832781?v=4&s=117" width="117">](https://github.com/vinnymac) |[<img alt="yodahuang" src="https://avatars2.githubusercontent.com/u/11242657?v=4&s=117" width="117">](https://github.com/yodahuang) |[<img alt="axelclark" src="https://avatars1.githubusercontent.com/u/16856928?v=4&s=117" width="117">](https://github.com/axelclark) |[<img alt="BigTony666" src="https://avatars2.githubusercontent.com/u/29159357?v=4&s=117" width="117">](https://github.com/BigTony666) |[<img alt="stigrune" src="https://avatars0.githubusercontent.com/u/1052748?v=4&s=117" width="117">](https://github.com/stigrune) |
+:---: |:---: |:---: |:---: |:---: |:---: |
+[timbroder](https://github.com/timbroder) |[vinnymac](https://github.com/vinnymac) |[yodahuang](https://github.com/yodahuang) |[axelclark](https://github.com/axelclark) |[BigTony666](https://github.com/BigTony666) |[stigrune](https://github.com/stigrune) |
+
+[<img alt="ybbarng" src="https://avatars2.githubusercontent.com/u/1793950?v=4&s=117" width="117">](https://github.com/ybbarng) |[<img alt="marktani" src="https://avatars1.githubusercontent.com/u/1780597?v=4&s=117" width="117">](https://github.com/marktani) |[<img alt="concreted" src="https://avatars2.githubusercontent.com/u/4016897?v=4&s=117" width="117">](https://github.com/concreted) |[<img alt="chmac" src="https://avatars0.githubusercontent.com/u/690997?v=4&s=117" width="117">](https://github.com/chmac) |[<img alt="charandas" src="https://avatars2.githubusercontent.com/u/542168?v=4&s=117" width="117">](https://github.com/charandas) |[<img alt="marcelabomfim" src="https://avatars0.githubusercontent.com/u/6224547?v=4&s=117" width="117">](https://github.com/marcelabomfim) |
+:---: |:---: |:---: |:---: |:---: |:---: |
+[ybbarng](https://github.com/ybbarng) |[marktani](https://github.com/marktani) |[concreted](https://github.com/concreted) |[chmac](https://github.com/chmac) |[charandas](https://github.com/charandas) |[marcelabomfim](https://github.com/marcelabomfim) |
+
+[<img alt="zollillo" src="https://avatars3.githubusercontent.com/u/8833904?v=4&s=117" width="117">](https://github.com/zollillo) |[<img alt="codejet" src="https://avatars3.githubusercontent.com/u/802203?v=4&s=117" width="117">](https://github.com/codejet) |[<img alt="reed-jones" src="https://avatars0.githubusercontent.com/u/11511864?v=4&s=117" width="117">](https://github.com/reed-jones) |[<img alt="rtveitch" src="https://avatars3.githubusercontent.com/u/25228001?v=4&s=117" width="117">](https://github.com/rtveitch) |[<img alt="SayakaOno" src="https://avatars0.githubusercontent.com/u/33141219?v=4&s=117" width="117">](https://github.com/SayakaOno) |[<img alt="swapnilmishra" src="https://avatars2.githubusercontent.com/u/875450?v=4&s=117" width="117">](https://github.com/swapnilmishra) |
+:---: |:---: |:---: |:---: |:---: |:---: |
+[zollillo](https://github.com/zollillo) |[codejet](https://github.com/codejet) |[reed-jones](https://github.com/reed-jones) |[rtveitch](https://github.com/rtveitch) |[SayakaOno](https://github.com/SayakaOno) |[swapnilmishra](https://github.com/swapnilmishra) |
+
+[<img alt="vvasiloud" src="https://avatars1.githubusercontent.com/u/5891530?v=4&s=117" width="117">](https://github.com/vvasiloud) |[<img alt="vstoms" src="https://avatars2.githubusercontent.com/u/22646173?v=4&s=117" width="117">](https://github.com/vstoms) |[<img alt="wichopy" src="https://avatars2.githubusercontent.com/u/24414632?v=4&s=117" width="117">](https://github.com/wichopy) |[<img alt="yairmark" src="https://avatars1.githubusercontent.com/u/28291977?v=4&s=117" width="117">](https://github.com/yairmark) |
+:---: |:---: |:---: |:---: |
+[vvasiloud](https://github.com/vvasiloud) |[vstoms](https://github.com/vstoms) |[wichopy](https://github.com/wichopy) |[yairmark](https://github.com/yairmark) |
 
 ## License
+The MIT License (MIT)
 
-Distributed under the [MIT](http://showalicense.com/?fullname=Konstantin+M%C3%BCnster&year=2019#license-mit) license.
+Copyright (c) 2016-2020 Alexander Shelepenok
 
-See `LICENSE` for more information.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
