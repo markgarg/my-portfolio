@@ -73,7 +73,7 @@ module.exports = {
                 allMarkdownRemark(
                   limit: 1000,
                   sort: { order: DESC, fields: [frontmatter___date] },
-                  filter: { frontmatter: { template: { eq: 'post' }, draft: { ne: true } } }
+                  filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
                 ) {
                   edges {
                     node {
@@ -159,7 +159,7 @@ module.exports = {
             }
             allSitePage(
               filter: {
-                path: { regex: '/^(?!/404/|/404.html|/dev-404-page/)/' }
+                path: { regex: "/^(?!/404/|/404.html|/dev-404-page/)/" }
               }
             ) {
               edges {
