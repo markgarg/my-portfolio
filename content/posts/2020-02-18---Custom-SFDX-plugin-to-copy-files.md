@@ -20,15 +20,18 @@ As with most orgs, we have a lot of third party API integrations and we use [Nam
 Storing Named Credentials in `git` in such setup is not straightforward as they can point to only a single URL at a time. Hence, we have a custom `config` directory that stores the URLs based on the environment and then our custom `ant` target copies these files into the `src/namedCredentials` during deployment as illustrated below.
 
 This is how the project looks like:
+
 ![Project directory when there's at rest](/media/proj-dir-empty.png)
 *Project directory when there’s no deployment — notice `src/namedCredentials` is empty*
 
 To deploy to our staging environment, we run:
+
 ```bash
  ENVIRONMENT=staging ant build
  ```
 
 This will run a custom ant code that moves the named credential(s) from `config/staging/namedCredentials` to `src/namedCredentials` as shown below:
+
 ![Project directory when custom ant script runs for staging environment](/media/proj-dir-with-ant.png)
 *Project directory when custom `ant` script runs for `staging` environment*
 
