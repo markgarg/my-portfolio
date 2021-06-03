@@ -4,7 +4,7 @@ module.exports = {
   url: 'https://rohitmacherla.com',
   pathPrefix: '/',
   title: 'Rohit Macherla\'s portfolio and blog',
-  subtitle: 'Solves problems using software',
+  subtitle: 'Solves business problems using software',
   copyright: '© All rights reserved.',
   disqusShortname: '',
   postsPerPage: 4,
@@ -18,10 +18,6 @@ module.exports = {
     {
       label: 'About me',
       path: '/pages/about'
-    },
-    {
-      label: 'Contact me',
-      path: '/pages/contacts'
     }
   ],
   author: {
