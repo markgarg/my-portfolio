@@ -27,7 +27,7 @@
     "static",
     "blog",
     "minimal",
-    "react",
+    "react"
   ],
   "dependencies": {
     "@sentry/gatsby": "^6.4.1",
