@@ -4,7 +4,7 @@ date: "2019-05-05T22:40:32.169Z"
 slug: "slack-alerts-for-salesforce"
 template: "post"
 draft: false
-category: "salesforce"
+category: "monitoring"
 tags:
   - "salesforce"
   - "monitoring"
