@@ -1,0 +1,71 @@
+---
+title: Next level monitoring for your Salesforce enterprise
+date: "2021-03-31T00:00:00.000Z"
+slug: "next-level-monitoring-for-your-salesforce-enterprise"
+template: "post"
+draft: false
+category: "monitoring"
+tags:
+  - "salesforce"
+  - "monitoring"
+description: Going beyond the standard monitoring that Salesforce offers so you can monitor your business
+socialImage: "/media/2021-03-31-dashboard.png"
+---
+
+This is a post in a series about Monitoring.
+
+![A monitoring system](/media/2021-03-31-dashboard.png)
+*A monitoring system*
+
+Earlier, I’ve talked about the importance of monitoring and how we can get it started by integrating Salesforce.com with Slack.
+
+## Wait, why do I need this?
+
+We know that Salesforce offers us some ways to monitor our system —
+
+    - a scheduled dashboard/report sent out an as email
+    - send out an email when there’s a breach in the limits etc.
+
+That’s all good but there’s really no big-picture of our org here. Some of the problems that really need solving are best known before they happen.
+
+Imagine if we had a business critical batch process. What if the job drops off after a deployment? Would you have to wait until someone from the business calls the tech team’s manager to tell them that something’s not right?
+
+On the other hand, even receiving email notifications at 2AM may be lost unless they can trigger your company’s Incident notification system.
+
+What we need is a better monitoring system. Something that can track and alert us when our business processes fail, or better — __*before they are going to fail*__.
+
+## Properties of a good monitoring system
+
+Let's try to understand what a good monitoring system should do. It should:
+
+- store data; these are also called metrics in monitoring terminology
+- provide a graphical representation of the metrics over time. We, humans, are far better at spotting trends visually than looking at rows of data.
+- alert when things go wrong. Ideally, we should be able to define a set of rules to determine what is a failure and what to do in such a failure (send email, slack alert, etc.)
+
+### Using Salesforce as a monitoring system
+
+Now, let’s see if we can use Salesforce.com itself as our monitoring system.
+
+√ __Store data__: The big advantage is that all the data/metrics are already within Salesforce.
+- __Graphs__: Whilst Salesforce offers us reports and dashboards, these are very basic and slow. The ability to embed one graph over the other, or have tags with release versions on them is not supported and we’d have to resort to building it all ourselves using external leaflet.js libraries.
+x __Alerts__: There is no out of the box alerting feature that supports what we want. Whilst we can build some ourselves, it’ll be really complicated to write alerts like *“Alert us on Slack when there is no Account created in the last 30 mins during business hours”*. We can maybe look at periodic 30 min intervals, but rolling 30 mins — nah, we’d have to build a complex system.
+
+Building this in-house is not only a big project, but one that takes too long. Why should we spend so long when there are monitoring systems that do this for us?
+
+## Introducing Prometheus: an open-source monitoring and alerting system
+
+[Prometheus](https://prometheus.io/) is one of the many monitoring and alerting applications out there that fits our bill. Others that you can check include Nagios, InfluxDB, Graphite, to a name a few, but we’ll go ahead with Prometheus as an example.
+
+We’ll install this as a toolkit as we’ll use Prometheus with Grafana (for graphs) and Alert Manager (for alerting). Not to worry, as they are a popular setup, they come together.
+
+√ __Store data__: While the data is within Salesforce, we can setup a REST API in Salesforce and have Prometheus consume it periodically.
+√ __Graphs__: Excellent in-built graphs using Grafana, a component that we’ll help us visualize our metrics using PromQL — a query language. It’ll take us an hour to get to know the basics for what we want to achieve.
+√ __Alerts__: Prometheus includes support for configuring alerts, and an in-built “Alert Manager” to send them. This is one of the excellent features that I fell for.
+
+> Alerting with Prometheus is separated into two parts. Alerting rules in Prometheus servers send alerts to an Alertmanager. The Alertmanager then manages those alerts, including silencing, inhibition, aggregation and sending out notifications via methods such as email, on-call notification systems, and chat platforms.
+
+x __Hosting__: The only drawback would be hosting such a service. Whilst it is a one-time job in setting it up, there’s always maintenance at some point, and someone willing to do it. If you’ve got an IT task force and some internal servers, you could leverage it. Otherwise, you can even host it on Heroku and I’m going to talk about it next.
+
+“Ahem, didn’t you say we’ll have to build an API” you ask. Yes, though it’s a non-trivial task, it’s nevertheless easier to solve and quicker to build than doing all of it ourselves. You’ll see it’s not too hard to build it ourselves and if we’ve got complicated monitoring requirements, we can still find solutions for this engineering problem rather than spending time building graphs and alerting.
+
+In the next chapters, we’ll look at setting up Prometheus, building the REST API and finish off with a demo.
