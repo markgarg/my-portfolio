@@ -12,7 +12,7 @@ description: Going beyond the standard monitoring that Salesforce offers so you 
 socialImage: "/media/2021-03-31-dashboard.png"
 ---
 
-This is a post in a series about Monitoring.
+This is a post in a series about [Monitoring](/category/monitoring).
 
 ![A monitoring system](/media/2021-03-31-dashboard.png)
 *A monitoring system*

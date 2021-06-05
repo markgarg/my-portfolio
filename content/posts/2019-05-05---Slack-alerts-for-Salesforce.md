@@ -12,7 +12,7 @@ description: Enhanced monitoring for Salesforce.com with Slack integration
 socialImage: "/media/slack-gov-limits.png"
 ---
 
-This is a post in a series about Monitoring.
+This is a post in a series about [Monitoring](/category/monitoring).
 
 - [A case for better monitoring](#a-case-for-better-monitoring)
 - [Here's what we are going to achieve](#heres-what-we-are-going-to-achieve)
