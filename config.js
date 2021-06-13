@@ -12,13 +12,13 @@ module.exports = {
   useKatex: false,
   menu: [
     {
-      label: 'Articles',
-      path: '/'
+      label: 'Blog',
+      path: '/',
     },
     {
       label: 'About me',
-      path: '/pages/about'
-    }
+      path: '/pages/about',
+    },
   ],
   author: {
     name: 'Rohit Macherla',
@@ -28,6 +28,6 @@ module.exports = {
       // email: '',
       github: 'markgarg',
       linkedin: 'rohit-macherla-0b89077',
-    }
-  }
+    },
+  },
 };
