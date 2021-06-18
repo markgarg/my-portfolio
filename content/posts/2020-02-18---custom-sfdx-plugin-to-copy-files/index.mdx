@@ -1,13 +1,13 @@
 ---
 title: Custom SFDX plugin to copy files
-date: "2020-02-18T20:11:19.233Z"
-slug: "custom-sfdx-plugin-to-copy-files"
-template: "post"
+date: '2020-02-18T20:11:19.233Z'
+slug: 'custom-sfdx-plugin-to-copy-files'
+template: 'post'
 draft: false
-category: "sfdx"
+category: 'sfdx'
 tags:
-  - "salesforce"
-  - "sfdx"
+  - 'salesforce'
+  - 'sfdx'
 description: A simple plugin to ensure correct files are used for deployment
 ---
 
@@ -21,19 +21,19 @@ Storing Named Credentials in `git` in such setup is not straightforward as they 
 
 This is how the project looks like:
 
-![Project directory when there's at rest](/media/proj-dir-empty.png)
-*Project directory when there’s no deployment — notice `src/namedCredentials` is empty*
+![Project directory when there's at rest](./proj-dir-empty.png)
+_Project directory when there’s no deployment — notice `src/namedCredentials` is empty_
 
 To deploy to our staging environment, we run:
 
 ```bash
  ENVIRONMENT=staging ant build
- ```
+```
 
 This will run a custom ant code that moves the named credential(s) from `config/staging/namedCredentials` to `src/namedCredentials` as shown below:
 
-![Project directory when custom ant script runs for staging environment](/media/proj-dir-with-ant.png)
-*Project directory when custom `ant` script runs for `staging` environment*
+![Project directory when custom ant script runs for staging environment](./proj-dir-with-ant.png)
+_Project directory when custom `ant` script runs for `staging` environment_
 
 This way, we are able to use the named credential specific to an environment for deployment. We can extend this to custom metadata/CORS endpoints/remote site settings etc. which change from one environment to the other.
 

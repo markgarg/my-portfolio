@@ -10,10 +10,11 @@ tags:
   - "extension"
   - "lightning"
 description: A simple extension for some useful developer shortcuts in Lightning
-socialImage: "/media/2021-06-08-screenshot.png"
+socialImage: "./2021-06-08-screenshot.png"
 ---
 
-![Salesforce Lightning Shortcuts icon](/media/2021-06-08-shortcut-icon.png)
+![Salesforce Lightning Shortcuts icon](./2021-06-08-shortcut-icon.png)
+
 This post is about a Chrome browser extension that I've built to ease navigation in Salesforce Lightning UI. [It's available here](https://chrome.google.com/webstore/detail/salesforce-lightning-shor/affbbgonlcjjhjiefcjgkjikmgelmclp).
 
 I find it time taking to sit around and wait for Salesforce Lightning UI to load for a lot of clicks that I need to open in a different browser tab.
@@ -32,5 +33,5 @@ Until then, this one works for me. Hope it helps someone else too.
 
 [Feel free to add more features or fork it yourself here](https://github.com/markgarg/sfdc-lightning-shortcuts-chrome-extn).
 
-![Salesforce Lightning Shortcut screenshot](/media/2021-06-08-screenshot.png)
+![Salesforce Lightning Shortcut screenshot](./2021-06-08-screenshot.png)
 *This is how Salesforce Lightning Shortcut looks like*
