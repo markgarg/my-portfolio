@@ -8,7 +8,7 @@ module.exports = {
     siteTitle: 'Rohit Macherla',
     siteTitleAlt: `Rohit Macherla - Solves business problems using Salesforce.com`,
     siteUrl: 'https://rohitmacherla.com',
-    siteDescription: "Rohit Macherla's portfolio and blog",
+    siteDescription: 'Rohit Macherla\'s portfolio and blog',
     siteImage: '/rohit.jpg',
     author: 'Rohit Macherla',
   },
@@ -111,12 +111,12 @@ module.exports = {
             serialize: ({ query: { site, allPost } }) =>
               allPost.nodes.map((post) => {
                 const url = site.siteMetadata.siteUrl + post.slug;
-                const content = `<p>${post.excerpt}</p><div style="margin-top: 50px; font-style: italic;"><strong><a href="${url}">Keep reading</a>.</strong></div><br /> <br />`;
+                const content = `<p>${post.description}</p><div style="margin-top: 50px; font-style: italic;"><strong><a href="${url}">Keep reading</a>.</strong></div><br /> <br />`;
 
                 return {
                   title: post.title,
                   date: post.date,
-                  excerpt: post.excerpt,
+                  description: post.description,
                   url,
                   guid: url,
                   custom_elements: [{ 'content:encoded': content }],
@@ -128,14 +128,14 @@ module.exports = {
                   nodes {
                     title
                     date(formatString: "MMMM D, YYYY")
-                    excerpt
+                    description
                     slug
                   }
                 }
               }
             `,
             output: `rss.xml`,
-            title: `Minimal Blog - @lekoarts/gatsby-theme-minimal-blog`,
+            title: `Rohit Macherla's blog`,
           },
         ],
       },
