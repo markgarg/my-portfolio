@@ -12,29 +12,17 @@ description: Enhanced monitoring for Salesforce.com with Slack integration
 socialImage: './slack-gov-limits.png'
 ---
 
-This is a post in a series about Monitoring.
+_This is a part of [series of blog posts about advanced monitoring techniques for your Salesforce.com application](/series-about-monitoring-your-salesforce-enterprise) so your business can rely on the tech team._
 
-- [A case for better monitoring](#a-case-for-better-monitoring)
-- [Here's what we are going to achieve](#heres-what-we-are-going-to-achieve)
-- [Let's do it](#lets-do-it)
-  - [Fetching the limits](#fetching-thelimits)
-    - [Evaluating if limits are over a threshold](#evaluating-if-limits-are-over-a-threshold)
-  - [Sending an alert message to a Slack channel](#sending-an-alert-message-to-a-slackchannel)
-- [Wrapping it up](#wrapping-itup)
+_So far, we've covered:_  
+- _[A case for better monitoring](/a-case-for-better-monitoring)_
 
-### A case for better monitoring
+_and we are now going to integrate Slack with Salesforce.com for simple monitoring._
 
-Let's say we have a mechanism for storing errors as a custom object records in our implementation of Salesforce.com. If we want to track any production errors, we can send email alerts whenever an error record is created. It solves the purpose but surely there's better ways of going about it! Similarly, let's say we suddenly notice that our incoming Bulk API calls are no longer working because our source system tells us that they receive errors.
+## Intro
+[Slack](https://slack.com/) is slowly growing as the de facto standard for team communication. Teams constantly rely on Slack for build messages from their Jenkins jobs, GitHub PRs and JIRA integrations. Some have support channels in Slack specific to their teams, and it makes sense to have Salesforce.com alerts sent to such a Slack channel. If the people on support are members of that channel, they'll be notified when there are issues.
 
-That doesn't sound so good, does it? Waiting for someone else to tell us that there's something wrong with our system does not build trust in our system. If we are able to find out such problems ourselves and solve them, and in the interim if our someone from the source system tells us that we are no longer accepting their API calls, it's much better to say "we are aware of it and are working to fix it", or perhaps even going further to let everyone know about it before they find it out. That builds so much more trust in our team and the technical leadership, and something we should vie for.
-
-> When we are able to monitor something, we can be more proactive, as opposed to being reactive, in identifying and solving issues.
-
-Salesforce.com provides a few mechanisms - the email alerts when API limits cross a certain %, email alerts for new records created, etc. but it's up to us to extend them further and build robust practices.
-
-To this end, I started building simple integrations that help. [Slack](https://slack.com/) is slowly growing as the de facto standard for team communication. Teams constantly rely on Slack for build messages from their Jenkins jobs, GitHub PRs and JIRA integrations. Some have support channels in Slack specific to their teams, and it makes sense to have Salesforce.com alerts sent to such a Slack channel. If the people on support are members of that channel, they'll be notified when there are issues.
-
-### Here's what we are going to achieve
+## Here's what we are going to achieve
 
 ![A Slack channel that shows Salesforce.com alerts: Governor Limits alerts in the picture](./slack-gov-limits.png)
 _A Slack channel that shows Salesforce.com alerts: Governor Limits alerts in the picture_
@@ -53,7 +41,7 @@ Broadly, the solution consists of:
 2. Evaluating if limits are over a threshold; and
 3. Sending an alert message to a Slack channel
 
-#### Fetching the limits
+### Fetching the limits
 
 Salesforce provides Limits resource that encapsulates some of the governor limits. It's available in two formats:
 
@@ -66,7 +54,7 @@ I decided to use the Metadata API as it offers a lot more Limits to alert than t
 
 The `AlertManagerSchedulable` is the entry point for starting the process. When scheduled, this class will check if there are any alerts (by implementing the `shouldAlert` interface) and will then invoke them if there are any. The `shouldAlert` method in turn calls the metadata api to fetch the limits. It involves using a `NamedCredential`, a `ConnectedApp` for OAuth and an `AuthProvider` to achieve this. [Here's a good post](https://www.gscloudsolutions.com/blogpost/Using-Named-Credentials-with-the-Apex-Wrapper-Salesforce-Metadata-API-apex-mdapi?blogpost=true) to set it up.
 
-##### Evaluating if limits are over a threshold
+### Evaluating if limits are over a threshold
 
 The Limits API response looks like this:
 
@@ -123,8 +111,16 @@ That's it, we'd be presented with a web hook url which needs to be copied into t
 curl -X POST - data-urlencode "payload={\"channel\": \"#channel-name-here\", \"username\": \"webhookbot\", \"text\": \"This is posted to #channel-name-here and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/CHANGME
 ```
 
-### Wrapping it up
+## Wrapping it up
 
 When we deploy the code mentioned in [this GitHub repo](https://github.com/markgarg/salesforce-alerting) to our Salesforce instance, we are ready to roll. We need a Slack channel name, an icon emoji (which can be left to `:ghost`), the web hook URL and then configure the Custom Metadata Type `Config > Slack` with those values. When we schedule the alerting job, it'll make the API call to fetch limits, then compare it against the % threshold we've set and then send an API to Slack WebHook URL to create alerts!
 
 _**P.S.** The code can be extended for other alerts and integrations_
+
+
+Next:
+- _[Taking it to the next level for monitoring the Salesforce.com Enterprise](/next-level-monitoring-for-your-salesforce-enterprise)_
+- _[Installing Prometheus](/installing-prometheus-on-heroku)_
+- _Exposing a Salesforce API that Prometheus can call_
+- _Wiring it up - integrating Salesforce with Prometheus_
+- _Wrapping the series!_

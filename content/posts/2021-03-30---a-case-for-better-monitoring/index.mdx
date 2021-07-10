@@ -1,0 +1,39 @@
+---
+title: A case for better Monitoring
+date: '2021-03-30T22:35:32.169Z'
+slug: 'a-case-for-better-monitoring'
+template: 'post'
+draft: false
+category: 'monitoring'
+tags:
+  - 'salesforce'
+  - 'monitoring'
+description: Presents my view of Why we need to monitor our system
+---
+
+_This is a part of [series of blog posts about advanced monitoring techniques for your Salesforce.com application](/series-about-monitoring-your-salesforce-enterprise) so your business can rely on the tech team._  
+_We are beginning with why we should consider monitoring our Salesforce.com application._
+
+Let's say we have a mechanism for storing errors as a custom object records in our implementation of Salesforce.com. If we want to track any production errors, we can send email alerts whenever an error record is created. It solves the purpose but surely there's better ways of going about it! Similarly, let's say we suddenly notice that our incoming Bulk API calls are no longer working because our source system tells us that they receive errors.
+
+_That doesn't sound so good, does it?_ 
+
+Waiting for someone else to tell us that there's something wrong with our system does not build trust in our system. If we are able to find out such problems ourselves and solve them, and in the interim if our someone from the source system tells us that we are no longer accepting their API calls, it's much better to say "we are aware of it and are working to fix it", or perhaps even going further to let everyone know about it before they find it out. That builds so much more trust in our team and the technical leadership, and something we should vie for.
+
+> When we are able to monitor something, we can be more proactive, as opposed to being reactive, in identifying and solving issues.
+
+Salesforce.com provides a few mechanisms - the email alerts when API limits cross a certain %, email alerts for new records created, etc. but it's up to us to extend them further and build robust practices.
+
+To this end, I started building simple integrations that help. 
+
+In this series, we are going to explore some ways of monitoring your Salesforce.com application and going beyond single projects to monitor your enterprise.
+
+And so, we begin!
+
+Next:
+- _[Slack alerts for Salesforce.com](/slack-alerts-for-salesforce)_
+- _[Taking it to the next level for monitoring the Salesforce.com Enterprise](/next-level-monitoring-for-your-salesforce-enterprise)_
+- _[Installing Prometheus](/installing-prometheus-on-heroku)_
+- _Exposing a Salesforce API that Prometheus can call_
+- _Wiring it up - integrating Salesforce with Prometheus_
+- _Wrapping the series!_
