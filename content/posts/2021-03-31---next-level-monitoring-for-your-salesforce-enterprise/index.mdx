@@ -12,21 +12,24 @@ description: Going beyond the standard monitoring that Salesforce offers so you 
 socialImage: './2021-03-31-dashboard.png'
 ---
 
-This is a post in a series about [Monitoring](/tags/monitoring).
+_This is a part of [series of blog posts about advanced monitoring techniques for your Salesforce.com application](/series-about-monitoring-your-salesforce-enterprise) so your business can rely on the tech team._
 
-![A monitoring system](./2021-03-31-dashboard.png)
-_A monitoring system_
+_So far, we've covered:_  
+1. _[A case for better monitoring](/a-case-for-better-monitoring)_  
+2. _[Slack alerts for Salesforce.com](/slack-alerts-for-salesforce)_
 
 Earlier, I’ve talked about the importance of monitoring and how we can get it started by integrating Salesforce.com with Slack.
 
 ## Wait, why do I need this?
 
-We know that Salesforce offers us some ways to monitor our system —
+We know that Salesforce offers us some ways to monitor our system:
 
-    - a scheduled dashboard/report sent out an as email
-    - send out an email when there’s a breach in the limits etc.
+- a scheduled dashboard/report sent out an as email
+- send out an email when there’s a breach in the limits etc.
 
-That’s all good but there’s really no big-picture of our org here. Some of the problems that really need solving are best known before they happen.
+That’s alright, but is it enough? We don't really get a bigger picture of our org here.
+
+> Some of the problems that really need solving are best known before they happen.
 
 Imagine if we had a business critical batch process. What if the job drops off after a deployment? Would you have to wait until someone from the business calls the tech team’s manager to tell them that something’s not right?
 
@@ -69,3 +72,10 @@ x **Hosting**: The only drawback would be hosting such a service. Whilst it is a
 “Ahem, didn’t you say we’ll have to build an API” you ask. Yes, though it’s a non-trivial task, it’s nevertheless easier to solve and quicker to build than doing all of it ourselves. You’ll see it’s not too hard to build it ourselves and if we’ve got complicated monitoring requirements, we can still find solutions for this engineering problem rather than spending time building graphs and alerting.
 
 In the next chapters, we’ll look at setting up Prometheus, building the REST API and finish off with a demo.
+
+
+Next:
+- _[Installing Prometheus](/installing-prometheus-on-heroku)_
+- _Exposing a Salesforce API that Prometheus can call_
+- _Wiring it up - integrating Salesforce with Prometheus_
+- _Wrapping the series!_
