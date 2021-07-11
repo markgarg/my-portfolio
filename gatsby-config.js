@@ -28,7 +28,7 @@ module.exports = {
         ],
         externalLinks: [
           {
-            name: `Github`,
+            name: `GitHub`,
             url: `https://github.com/markgarg`,
           },
           {
@@ -36,8 +36,12 @@ module.exports = {
             url: `https://www.linkedin.com/in/rohit-macherla-0b89077`,
           },
           {
-            name: `StackOverflow`,
+            name: `StackExchange`,
             url: `https://stackexchange.com/users/183803/markgarg?tab=accounts`,
+          },
+          {
+            name: `RSS`,
+            url: `/rss.xml`,
           },
         ],
       },
