@@ -7,6 +7,7 @@ import getIcon from "../../../utils/get-icon"
 
 const HeaderExternalLinks = () => {
   const { externalLinks } = useMinimalBlogConfig()
+  const fill = "#999";
 
   return (
     <React.Fragment>
@@ -21,9 +22,11 @@ const HeaderExternalLinks = () => {
         }}>
           {externalLinks.map((link) => (
             <TLink key={link.url} href={link.url} >
-              <span sx={{ p: `10px` }}>
-                <Icon name={link.name} icon={getIcon(link.name)} size="20px" />
-              </span>
+              <div sx={{ width: `25px`, height: `25px` }}>
+                <Icon name={link.name}
+                  icon={getIcon(link.name)}
+                  fill={fill} />
+              </div>
             </TLink>
           ))}
         </div>
