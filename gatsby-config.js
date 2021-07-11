@@ -39,6 +39,10 @@ module.exports = {
             name: `StackExchange`,
             url: `https://stackexchange.com/users/183803/markgarg?tab=accounts`,
           },
+          {
+            name: `RSS`,
+            url: `/rss.xml`,
+          },
         ],
       },
     },
