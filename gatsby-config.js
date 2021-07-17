@@ -5,12 +5,12 @@ const googleAnalyticsTrackingId = process.env.GOOGLE_ANALYTICS_ID;
 
 module.exports = {
   siteMetadata: {
-    siteTitle: 'Rohit Macherla',
+    siteTitle: "Rohit Macherla",
     siteTitleAlt: `Rohit Macherla - Solves business problems using Salesforce.com`,
-    siteUrl: 'https://rohitmacherla.com',
-    siteDescription: 'Rohit Macherla\'s portfolio and blog',
-    siteImage: '/rohit.jpg',
-    author: 'Rohit Macherla',
+    siteUrl: "https://rohitmacherla.com",
+    siteDescription: "Rohit Macherla's portfolio and blog",
+    siteImage: "/rohit.jpg",
+    author: "Rohit Macherla",
   },
   flags: {
     FAST_DEV: true,
@@ -25,6 +25,10 @@ module.exports = {
             title: `Blog`,
             slug: `/blog`,
           },
+          {
+            title: `About`,
+            slug: `/about`,
+          },
         ],
         externalLinks: [
           {
@@ -33,7 +37,7 @@ module.exports = {
           },
           {
             name: `LinkedIn`,
-            url: `https://www.linkedin.com/in/rohit-macherla-0b89077`,
+            url: `https://www.linkedin.com/in/rohit-macherla`,
           },
           {
             name: `StackExchange`,
@@ -123,7 +127,7 @@ module.exports = {
                   description: post.description,
                   url,
                   guid: url,
-                  custom_elements: [{ 'content:encoded': content }],
+                  custom_elements: [{ "content:encoded": content }],
                 };
               }),
             query: `
