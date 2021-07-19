@@ -35,20 +35,24 @@ const Timeline = ({ items }: TimelineProps) => {
             }}>
                 {items.map((item, index) => (
                     <div className="entry" key={index} sx={{
-                        width: `calc(50% - 80px)`,
+                        width: [`50%`, `calc(50% - 80px)`],
                         float: `left`,
-                        padding: `20px`,
+                        px: `20px`,
+                        pl: [0, `20px`],
+                        pr: [`15px`, `20px`],
                         clear: `both`,
                         textAlign: `right`,
-                        "&:not(:first-child)": {
-                            marginTop: `-30px`,
+                        "&:not(:first-of-type)": {
+                            marginTop: [0, `-30px`],
                         },
-                        "&:nth-child(2n)": {
+                        "&:nth-of-type(2n)": {
                             textAlign: `left`,
                             float: `right`,
+                            pr: [0, `20px`],
+                            pl: [`20px`, `20px`],
                             ".title": {
                                 "&:before": {
-                                    left: `-103px`,
+                                    left: [`-23px`, `-103px`],
                                 },
                                 "&.big:before": {
                                     transform: `translate(-8px,-50%)`,
@@ -71,31 +75,18 @@ const Timeline = ({ items }: TimelineProps) => {
                                 borderRadius: `100%`,
                                 top: `50%`,
                                 transform: `translateY(-50%)`,
-                                right: `-113px`,
+                                right: [`-28px`, `-113px`],
                                 zIndex: `1000`,
-                                "&:nth-child(2n)": {
-                                    left: `-103px`,
-                                },
                             },
                             "&.big:before": {
                                 width: `24px`,
                                 height: `24px`,
                                 transform: `translate(8px,-50%)`,
-                                "&:nth-child(2n)": {
-                                    transform: `translate(-8px,-50%)`,
-                                },
                             },
-                            "&:nth-child(2n)": {
-                                "&:before": {
-                                    left: `-63px`,
-                                },
-                                "&.big:before": {
-                                    transform: `translate(-8px,-50%)`,
-                                },
-                            }
                         }}>{item.title}</div>
                         <div className="body" sx={{
                             color: `#aaa`,
+                            mt: [`-20px`, 0],
                         }}>
                             <p sx={{
                                 lineHeight: `1.4em`,
