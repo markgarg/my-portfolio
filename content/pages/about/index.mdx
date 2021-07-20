@@ -1,9 +1,11 @@
 ---
-title: Hi.
+title: Hi / Hola / Namaste!
 slug: "/about"
 ---
 
-### I'm Rohit Macherla.
+import Timeline from "../../../src/components/Timeline/Timeline";
+
+I'm Rohit Macherla.
 
 I am a passionate software developer with a background in Computer Science. I love to learn new things and I'm always learning new things. I'm also a big fan of reading and writing.
 
@@ -12,3 +14,55 @@ I've been working on Salesforce.com for more than 10 years now. During this time
 My biggest strengths are rapid learning, adapting, and an ability to foresee challenges. I bring with me a holistic approach to solve your business problems.
 
 This blog is my space for sharing my thoughts and ideas. You would find that it does not contain the ordinary stuff like a rejig of the documentation. It contains my ideas, some concepts that I played with, and my thoughts on solving some problems.
+
+<Text
+  sx={{
+    fontSize: [3, 4, 4],
+    fontWeight: `bold`,
+    color: `heading`,
+  }}
+>
+  Here's a timeline of my career (from a custom component I built 😃):
+</Text>
+
+<Timeline
+  items={[
+    {
+      title: "Now",
+      body: "Using Salesforce with Javascript on the side",
+    },
+    {
+      title: "2017",
+      body: "Building apps with React.js too!",
+    },
+    {
+      title: "2016",
+      body: "First lines of code with Python",
+    },
+    {
+      title: "2015",
+      body: "Moved to Sky UK for Sky Tickets startup",
+    },
+    {
+      title: "2014",
+      body: "Moved to Deloitte",
+    },
+    {
+      title: "2013",
+      body: "Started using Node.js & Heroku",
+    },
+    {
+      title: "2010",
+      body: "Started working on Salesforce.com - has been my primary skillset since",
+    },
+    {
+      title: "2006",
+      body: "Joined Tata Consultancy Services as a Java developer",
+    },
+    {
+      title: "2006",
+      body: "Graduated with a Bachelors degree in Computer Science",
+    },
+    { title: "2005", body: "Internship at Sonic Software Pvt Ltd in Java" },
+  ]}
+/>
