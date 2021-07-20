@@ -15,7 +15,6 @@ const Timeline = ({ items }: TimelineProps) => {
             mx: 0,
             mb: 0,
             mt: [`10px`, `30px`],
-            fontFamily: "'Droid Sans', sans-serif",
             position: `relative`,
             '&:before': {
                 content: "''",
@@ -25,7 +24,7 @@ const Timeline = ({ items }: TimelineProps) => {
                 bottom: `0px`,
                 transform: `translateX(-50%)`,
                 width: `4px`,
-                backgroundColor: `#fff`,
+                backgroundColor: `secondary`,
             },
         }}>
             <div className="entries" sx={{
@@ -66,14 +65,16 @@ const Timeline = ({ items }: TimelineProps) => {
                             fontSize: `32px`,
                             mb: `12px`,
                             position: `relative`,
-                            color: `#fff`,
+                            color: `primary`,
                             "&:before": {
                                 content: '""',
                                 position: `absolute`,
                                 width: `8px`,
                                 height: `8px`,
-                                border: `4px solid #ffffff`,
-                                backgroundColor: `#1D1D1D`,
+                                borderWidth: `4px`,
+                                borderStyle: `solid`,
+                                borderColor: `secondary`,
+                                backgroundColor: `background`,
                                 borderRadius: `100%`,
                                 top: `50%`,
                                 transform: `translateY(-50%)`,
@@ -87,7 +88,7 @@ const Timeline = ({ items }: TimelineProps) => {
                             },
                         }}>{item.title}</div>
                         <div className="body" sx={{
-                            color: `#aaa`,
+                            color: `text`,
                             mt: `-20px`,
                         }}>
                             <p sx={{
