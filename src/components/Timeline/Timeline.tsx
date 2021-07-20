@@ -86,7 +86,7 @@ const Timeline = ({ items }: TimelineProps) => {
                         }}>{item.title}</div>
                         <div className="body" sx={{
                             color: `#aaa`,
-                            mt: [`-20px`, 0],
+                            mt: `-20px`,
                         }}>
                             <p sx={{
                                 lineHeight: `1.4em`,
