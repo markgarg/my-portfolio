@@ -11,8 +11,10 @@ type TimelineProps = {
 const Timeline = ({ items }: TimelineProps) => {
     return (
         <div className="timeline" sx={{
-            minHeight: [`1400px`, `800px`],
-            m: 0,
+            minHeight: [`1500px`, `650px`],
+            mx: 0,
+            mb: 0,
+            mt: [`10px`, `30px`],
             fontFamily: "'Droid Sans', sans-serif",
             position: `relative`,
             '&:before': {

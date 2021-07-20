@@ -1,11 +1,11 @@
 ---
-title: Hi.
+title: Hi / Hola / Namaste!
 slug: "/about"
 ---
 
 import Timeline from "../../../src/components/Timeline/Timeline";
 
-### I'm Rohit Macherla.
+I'm Rohit Macherla.
 
 I am a passionate software developer with a background in Computer Science. I love to learn new things and I'm always learning new things. I'm also a big fan of reading and writing.
 
@@ -15,8 +15,22 @@ My biggest strengths are rapid learning, adapting, and an ability to foresee cha
 
 This blog is my space for sharing my thoughts and ideas. You would find that it does not contain the ordinary stuff like a rejig of the documentation. It contains my ideas, some concepts that I played with, and my thoughts on solving some problems.
 
+<Text
+  sx={{
+    fontSize: [3, 4, 4],
+    fontWeight: `bold`,
+    color: `heading`,
+  }}
+>
+  Here's a timeline of my career (from a custom component I built 😃):
+</Text>
+
 <Timeline
   items={[
+    {
+      title: "Now",
+      body: "Using Salesforce with Javascript on the side",
+    },
     {
       title: "2017",
       body: "Building apps with React.js too!",
