@@ -1,33 +1,44 @@
 ---
 title: Slack alerts for Salesforce
-date: '2019-05-05T22:40:32.169Z'
-slug: 'slack-alerts-for-salesforce'
-template: 'post'
+date: "2019-05-05T22:40:32.169Z"
+slug: "slack-alerts-for-salesforce"
+template: "post"
 draft: false
-category: 'monitoring'
+category: "monitoring"
 tags:
-  - 'salesforce'
-  - 'monitoring'
+  - "salesforce"
+  - "monitoring"
 description: Enhanced monitoring for Salesforce.com with Slack integration
-socialImage: './slack-gov-limits.png'
+socialImage: "./slack-gov-limits.png"
 ---
+
+import MyList from "../../../src/components/MyList/MyList";
 
 _This is a part of [series of blog posts about advanced monitoring techniques for your Salesforce.com application](/series-about-monitoring-your-salesforce-enterprise) so your business can rely on the tech team._
 
-_So far, we've covered:_  
+_So far, we've covered:_
+
 - _[A case for better monitoring](/a-case-for-better-monitoring)_
 
 _and we are now going to integrate Slack with Salesforce.com for simple monitoring._
 
 ## Intro
-[Slack](https://slack.com/) is slowly growing as the de facto standard for team communication. Teams constantly rely on Slack for build messages from their Jenkins jobs, GitHub PRs and JIRA integrations. Some have support channels in Slack specific to their teams, and it makes sense to have Salesforce.com alerts sent to such a Slack channel. If the people on support are members of that channel, they'll be notified when there are issues.
+
+[Slack](https://slack.com/) is slowly growing as the de facto standard for team communication. Some teams rely on their team Slack channel for status updates of builds from their Jenkins jobs, GitHub PRs and JIRA integrations.
+
+As a part of monitoring the Salesforce org, we are going to integrate Salesforce.com with Slack. We are going to use this integration to push any alerts we think are important to the team.
+
+A sample problem we are going to address is this:
+Let us say our org uses API calls to external system to get data. We are going to monitor the number of API calls used and if it gets closer to the limit, we will send a notification to the team Slack channel.
+
+The Salesforce to Slack integration can solve many other problems, but for this example, let us focus on the API call problem.
 
 ## Here's what we are going to achieve
 
 ![A Slack channel that shows Salesforce.com alerts: Governor Limits alerts in the picture](./slack-gov-limits.png)
 _A Slack channel that shows Salesforce.com alerts: Governor Limits alerts in the picture_
 
-To make it work, such an alerting mechanism must run frequently, and once per minute seems a good place to start. You may want to schedule it every 5 mins and it would certainly work well, but it's your monitoring use case that drives the frequency. For most systems, I presume once a minute is a good metric. Sounds like a good plan, at least so far on paper. Hence, I set out to create a simple Slack alerting mechanism from Salesforce.
+To make it work, such an alerting mechanism must run frequently, and once per minute seems a good place to start. You may want to schedule it every 5 mins and it would certainly work well, but it's your monitoring use case that drives the frequency. For most systems, I presume once a minute is a good metric.
 
 I picked **Limits** as a good starting point for this project especially because I don't quite like emails as a standard alerting mechanism for API limits. Instead of dealing with just the API limits, I extended the scope to cover all the items supported by the Limits API.
 
@@ -45,18 +56,19 @@ Broadly, the solution consists of:
 
 Salesforce provides Limits resource that encapsulates some of the governor limits. It's available in two formats:
 
-- Apex class :
-  The [Limits class](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_limits.htm) has methods to list a lot of limits, but this isn't as extensive as the Metadata API. Perhaps Salesforce has plans to keep it in sync with Metadata API, but not yet at the time of writing this.
-- Metadata API:  
-  The Metadata API is a reliable way to fetch the limits, but each call to fetch the limits counts against the Governor limits.
+🔶 **Apex class**  
+The [Limits class](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_limits.htm) has methods to list a lot of limits, ~~but this isn't as extensive as the Metadata API. Perhaps Salesforce has plans to keep it in sync with Metadata API, but not yet at the time of writing this.~~ This article has since been edited in favour of [OrgLimits class](https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_class_System_OrgLimits.htm) which enapsulates all the limits we are after.
 
-I decided to use the Metadata API as it offers a lot more Limits to alert than the Apex class. Even if we schedule the alerting mechanism to run every minute, that'll be just 1440 API calls that are used in 24hrs which, in my opinion, is a very small price to pay for the benefits.
+🔶 **Metadata API**  
+~~The Metadata API is a reliable way to fetch the limits, but each call to fetch the limits counts against the Governor limits.
+I decided to use the Metadata API as it offers a lot more Limits to alert than the Apex class. Even if we schedule the alerting mechanism to run every minute, that'll be just 1440 API calls that are used in 24hrs which, in my opinion, is a very small price to pay for the benefits.~~
+This article has since been edited in favour of `OrgLimits` class. While Metadata API can be used to fetch the limits, it relies on calling an API, albeit to the same org.
 
-The `AlertManagerSchedulable` is the entry point for starting the process. When scheduled, this class will check if there are any alerts (by implementing the `shouldAlert` interface) and will then invoke them if there are any. The `shouldAlert` method in turn calls the metadata api to fetch the limits. It involves using a `NamedCredential`, a `ConnectedApp` for OAuth and an `AuthProvider` to achieve this. [Here's a good post](https://www.gscloudsolutions.com/blogpost/Using-Named-Credentials-with-the-Apex-Wrapper-Salesforce-Metadata-API-apex-mdapi?blogpost=true) to set it up.
+The `AlertManagerSchedulable` is the entry point for starting the process. When scheduled, this class will check if there are any alerts (by implementing the `shouldAlert` interface) and will then invoke them if there are any. The `shouldAlert` method in turn uses `LimitsServiceImpl` to fetch the limits using `OrgLimits` class.
 
 ### Evaluating if limits are over a threshold
 
-The Limits API response looks like this:
+The OrgLimits response, if converted to a JSON, looks like this:
 
 ```js
 {
@@ -79,11 +91,15 @@ The Limits API response looks like this:
 }
 ```
 
-The code goes over all the items returned in the `Limits` API call and just compared the `Max` to `Remaining`. For simplicity, the first version of the code checks the usage against a hard-coded threshold value of 70% to issue an alert with a severity level of `MEDIUM`, and 90% to issue an alert with a severity level of `HIGH`.
+The code goes over all the items returned in the `Limits` API call and just compares the `Max` to `Remaining`. All we need is to identify if the difference between `Max` and `Remaining` is greater than a threshold.
 
-Further versions can use this as a configurable setting in Custom Metadata Type and can go even further and specify different thresholds for different limits.
+#### Configurable thresholds
 
-It then builds a message that needs to be alerted.
+The limit thresholds can be set in the Custom Metadata `Config__mdt`. A default value of 70% for `WARNING` and 90% for `SEVERE` messages is already configured in the metadata with the name `All`. If a particular limit needs to be changed, a new metadata record can be introduced with that name.
+
+For example, if storage space is already at 85% and you'd like to be alerted only at 95% and 99% for warning and severe messages, respectively, then you'd need to add a new Custom Metadata record for `Config__mdt`. The key would be `DataStorageMB` (same as what the API returns), and values would be `0.95` and `0.99` for `Warning__c` and `Severe__c` respectively. This is also present as an example record in the customMetadata directory.
+
+Now that we know if there are any limits that need to be alerted, we build a message to be sent to the Slack channel.
 
 ### Sending an alert message to a Slack channel
 
@@ -108,17 +124,20 @@ We'd need a `WebHook` for it though, here's how to get it:
 That's it, we'd be presented with a web hook url which needs to be copied into the Custom Metadata's `Alert URL`. There's also some friendly info and a curl that we can use to test it out as well. Here's a sample from Slack's documentation (after we've changed the channel name and web hook URL of course):
 
 ```bash
-curl -X POST - data-urlencode "payload={\"channel\": \"#channel-name-here\", \"username\": \"webhookbot\", \"text\": \"This is posted to #channel-name-here and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/CHANGME
+curl \
+-X POST \
+--data-urlencode "payload={\"channel\": \"#channel-name-here\", \"username\": \"webhookbot\", \"text\": \"This is posted to #channel-name-here and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}" \
+https://hooks.slack.com/services/CHANGME
 ```
 
 ## Wrapping it up
 
-When we deploy the code mentioned in [this GitHub repo](https://github.com/markgarg/salesforce-alerting) to our Salesforce instance, we are ready to roll. We need a Slack channel name, an icon emoji (which can be left to `:ghost`), the web hook URL and then configure the Custom Metadata Type `Config > Slack` with those values. When we schedule the alerting job, it'll make the API call to fetch limits, then compare it against the % threshold we've set and then send an API to Slack WebHook URL to create alerts!
+When we deploy the code mentioned in [this GitHub repo](https://github.com/markgarg/salesforce-alerting) to our Salesforce instance, we are ready to roll. We need a Slack channel name, an icon emoji (which can be left to `:ghost`), the web hook URL and then configure the Custom Metadata Type `Config > Slack` with those values. When we schedule the alerting job, it'll fetch limits, then compare it against the % threshold we've set and then send an API to Slack WebHook URL to create alerts!
 
 _**P.S.** The code can be extended for other alerts and integrations_
 
-
 Next:
+
 - _[Taking it to the next level for monitoring the Salesforce.com Enterprise](/next-level-monitoring-for-your-salesforce-enterprise)_
 - _[Installing Prometheus](/installing-prometheus-on-heroku)_
 - _Exposing a Salesforce API that Prometheus can call_
