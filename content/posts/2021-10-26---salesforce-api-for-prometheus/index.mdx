@@ -1,0 +1,117 @@
+---
+title: Creating a Salesforce API that can be invoked by Prometheus
+date: "2021-07-10T11:15:00.000Z"
+slug: "creating-salesforce-api-to-invoke-from-prometheus"
+template: "post"
+draft: true
+category: "monitoring"
+tags:
+  - "monitoring"
+  - "salesforce"
+description: Exposing an API from Salesforce.com that Prometheus can call to collect metrics.
+---
+
+_This is a part of [series of blog posts about advanced monitoring techniques for your Salesforce.com application](/series-about-monitoring-your-salesforce-enterprise) so your business can rely on the tech team._
+
+_So far, we've covered:_
+
+1. _[A case for better monitoring](/a-case-for-better-monitoring)_
+2. _[Slack alerts for Salesforce.com](/slack-alerts-for-salesforce)_
+3. _[Taking it to the next level for monitoring the Salesforce.com Enterprise](/next-level-monitoring-for-your-salesforce-enterprise)_
+4. _[Installing Prometheus on Heroku](/installing-prometheus-on-heroku)_
+
+Alright, so we've got Prometheus up and running. So let's get it _pulling_ data from a Salesforce instance. That's right, Prometheus _calls an API_ to collect metrics. It uses a _pull_ mechanism, rather than asking us to push data to it.
+
+In a way, it's easier to do that because the only major thing that'd impact is the API limits. If we were to push data to it by invoking it's API, it's tricky to do that in Salesforce because we are talking about a job that collects metrics and calls an API frequently. Even if we separate the concerns and collect metrics and place it as records of an object, we'd still have to call an API frequently. Best case we'd do that every few minutes but have no guarantee that it'll actually run (the queue might be busy!) and worst case we have a perennial job just re-scheduling itself back occupying one job all the time.
+
+Prometheus also has an [FAQ about why it thinks pulling is better than pushing](https://prometheus.io/docs/introduction/faq/#why-do-you-pull-rather-than-push), if you are interested.
+
+## Metrics
+
+Straight from Prometheus's documentation, here's a very good definition:
+
+> In layperson terms, metrics are numeric measurements, time series mean that changes are recorded over time
+
+It can be the total storage space, number of processes running, % of cpu used etc.
+
+In Salesforce, some of the org specific metrics are specified by the governor limits themselves - like how many API calls were made in the last 24 hrs, total data usage, number of batch jobs that ran etc.
+
+In Prometheus's data model, each metric is stored in a time-series database. You can read more about [here](https://en.wikipedia.org/wiki/Time_series), but in short, it means that it stores data in time order. It then gives us more control over querying it to aggregate results in a nice way.
+
+A metric follows this notation:
+
+```text
+<metric name>{<label name>=<label value>, ...} <optional_value>
+
+Ex:
+# => total num of api requests of the type "POST" = 2308
+api_http_requests_total{method="POST"} 2308
+```
+
+The example above gives the current value of the total number of POST API requests as 2308. The `total` means it's the total since Prometheus started up.
+
+Each metric can have labels attached to it, which greatly helps us in understanding more about the metric. In our example, we can see that the number of `POST` APIs are captured. We could even add a `status=404` or `status=200` label if we wish to capture the responses too.
+
+All of this allows to build detailed monitoring rules - like asking us to be alerted when the number of `404`'s cross 30% of total API requests etc.
+
+## Sample journey
+
+Let's take a look at a sample sequence of calls to Prometheus and see how it all works.
+
+We know that every time the API is called, the application gives out the total number of API requests. Let's say at the beginning this is 0. Let's assume that the scrape_interval is 1 minute, that is Prometheus calls this API every minute to collect metrics. Here's how some sample responses look like:
+
+**First time - T1**
+
+```
+api_http_requests_total{method="POST"} 0
+```
+
+Assuming there are 21 API calls made in the minute.
+**Second time - T61**
+
+```
+api_http_requests_total{method="POST"} 21
+```
+
+Assuming there are 25 API calls made in the last minute.
+**Second time - T121**
+
+```
+api_http_requests_total{method="POST"} 46
+```
+
+Assuming there are 30 API calls made in the last minute.
+**Third time - T181**
+
+```
+api_http_requests_total{method="POST"} 76
+```
+
+As you can see, the number keeps growing. This type of metric is called a `Counter`.
+
+There are a few different types of metrics
+
+## API structure
+
+Metrics are exposed to Prometheus using a text-based format in the API:
+
+- each metric in a separate line (`\n`)
+- empty lines are ignored
+- last line must
+- `Content-Type` should be `text/plain`
+
+### Sample API response
+
+```bash
+# HELP http_requests_total The total number of HTTP requests.
+# TYPE http_requests_total counter
+http_requests_total{method="post",code="200"} 1027 1395066363000
+http_requests_total{method="post",code="400"}    3 1395066363000
+```
+
+## Building the API
+
+Next:
+
+- _[Wiring it up - integrating Salesforce with Prometheus](/integrating-salesforce-with-prometheus)_
+- _Wrapping the series!_
