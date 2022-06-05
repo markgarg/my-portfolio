@@ -1,0 +1,74 @@
+---
+title: Creating a Salesforce API that can be invoked by Prometheus
+date: "2021-07-10T11:15:00.000Z"
+slug: "creating-salesforce-api-to-invoke-from-prometheus"
+template: "post"
+draft: true
+category: "monitoring"
+tags:
+  - "monitoring"
+  - "salesforce"
+description: Exposing an API from Salesforce.com that Prometheus can call to collect metrics.
+---
+
+_This is a part of [series of blog posts about advanced monitoring techniques for your Salesforce.com application](/series-about-monitoring-your-salesforce-enterprise) so your business can rely on the tech team._
+
+_So far, we've covered:_
+
+1. _[A case for better monitoring](/a-case-for-better-monitoring)_
+2. _[Slack alerts for Salesforce.com](/slack-alerts-for-salesforce)_
+3. _[Taking it to the next level for monitoring the Salesforce.com Enterprise](/next-level-monitoring-for-your-salesforce-enterprise)_
+4. _[Installing Prometheus on Heroku](/installing-prometheus-on-heroku)_
+5. _[Prometheus metrics and API structure](/prometheus-metrics-and-api-structure)_
+
+## Building the API
+
+I've built a small repository that exposes [Governor Limits on the Org as a Salesforce API for Prometheus here](https://github.com/markgarg/salesforce-api-for-prometheus). It serves as a starting point, or an example of how you could build your own APIs.
+
+Deploy this code to your Salesforce Org and follow the steps in the `README`. The service will be available at `<public site url>/services/apexrest/api/v1/prometheus` and returns a `json` response. As this is an example, the service is exposed on the public site. Please use a proper authentication mechanism when you are using this. [This is the documenation](https://prometheus.io/docs/prometheus/latest/configuration/https/) from Prometheus docs that'll help.
+
+### Overview of the repo
+
+The code in the repository is straight forward. We've exposed one REST API that returns the metrics. It is designed to use a few providers - classes of type `MetricsProvidable` - that respond with a `List` of `PrometheusMetric`s. At the moment, this example only uses a `LimitsMetricProvider` which exposes Governor Limits at the Org level as metrics. 
+
+These `PrometheusMetric` records are then converted to a format acceptable to Prometheus, and then returned in the response.
+
+#### Format
+
+Each metric I've used follows the pattern `sfdc_limits_<limitname>_max` to denote the maximum value allowed by Salesforce (the Limit) or `sfdc_limits_<limitname>_current` to denote the current value used by the system. A simple Grafana expression doing a subtraction will let us know how much we've got left and can easily be alerted on.
+
+Ex.: _Alert when Daily API Requests reach 70%._
+
+Metrics that involve data storage are shown in MB according to Salesforce, and as Prometheus asks us to strip it down to the base metric - bytes in this case - these are converted to bytes and have an extra `_bytes` suffix to indicate as such.
+
+#### Labels
+
+To demonstrate use of labels, I've created a simple label called `environment` that'll let us know whether it's production or other integration environments. You can add your own labels to each of these metrics too.
+
+#### Next steps
+
+You can extend this to have your own provider classes that can, say, expose number of opportunities created or number of cases created etc. You might also want to log any errors too.
+
+### Response
+
+When I deployed this to my scratch org and ran the API, here's a response I got:
+
+```
+sfdc_limits_dailyasyncapexexecutions_max{environment="int"} 250000
+sfdc_limits_dailyasyncapexexecutions_current{environment="int"} 0
+sfdc_limits_dailyapirequests_max{environment="int"} 5000000
+sfdc_limits_dailyapirequests_current{environment="int"} 4
+sfdc_limits_dailybulkapibatches_max{environment="int"} 15000
+sfdc_limits_dailybulkapibatches_current{environment="int"} 0
+sfdc_limits_dailygenericstreamingapievents_max{environment="int"} 10000
+sfdc_limits_dailygenericstreamingapievents_current{environment="int"} 0
+sfdc_limits_dailybulkv2queryfilestoragemb_max_bytes{environment="int"} 1023999475712
+sfdc_limits_dailybulkv2queryfilestoragemb_current_bytes{environment="int"} 0
+```
+
+It's coming along nicely now. Let's integrate this with Prometheus in the next chapter and we'll close off after that.
+
+Next:
+
+- _Wiring it up - integrating Salesforce with Prometheus_
+- _Wrapping the series!_
