@@ -19,97 +19,54 @@ _So far, we've covered:_
 2. _[Slack alerts for Salesforce.com](/slack-alerts-for-salesforce)_
 3. _[Taking it to the next level for monitoring the Salesforce.com Enterprise](/next-level-monitoring-for-your-salesforce-enterprise)_
 4. _[Installing Prometheus on Heroku](/installing-prometheus-on-heroku)_
-
-Alright, so we've got Prometheus up and running. So let's get it _pulling_ data from a Salesforce instance. That's right, Prometheus _calls an API_ to collect metrics. It uses a _pull_ mechanism, rather than asking us to push data to it.
-
-In a way, it's easier to do that because the only major thing that'd impact is the API limits. If we were to push data to it by invoking it's API, it's tricky to do that in Salesforce because we are talking about a job that collects metrics and calls an API frequently. Even if we separate the concerns and collect metrics and place it as records of an object, we'd still have to call an API frequently. Best case we'd do that every few minutes but have no guarantee that it'll actually run (the queue might be busy!) and worst case we have a perennial job just re-scheduling itself back occupying one job all the time.
-
-Prometheus also has an [FAQ about why it thinks pulling is better than pushing](https://prometheus.io/docs/introduction/faq/#why-do-you-pull-rather-than-push), if you are interested.
-
-## Metrics
-
-Straight from Prometheus's documentation, here's a very good definition:
-
-> In layperson terms, metrics are numeric measurements, time series mean that changes are recorded over time
-
-It can be the total storage space, number of processes running, % of cpu used etc.
-
-In Salesforce, some of the org specific metrics are specified by the governor limits themselves - like how many API calls were made in the last 24 hrs, total data usage, number of batch jobs that ran etc.
-
-In Prometheus's data model, each metric is stored in a time-series database. You can read more about [here](https://en.wikipedia.org/wiki/Time_series), but in short, it means that it stores data in time order. It then gives us more control over querying it to aggregate results in a nice way.
-
-A metric follows this notation:
-
-```text
-<metric name>{<label name>=<label value>, ...} <optional_value>
-
-Ex:
-# => total num of api requests of the type "POST" = 2308
-api_http_requests_total{method="POST"} 2308
-```
-
-The example above gives the current value of the total number of POST API requests as 2308. The `total` means it's the total since Prometheus started up.
-
-Each metric can have labels attached to it, which greatly helps us in understanding more about the metric. In our example, we can see that the number of `POST` APIs are captured. We could even add a `status=404` or `status=200` label if we wish to capture the responses too.
-
-All of this allows to build detailed monitoring rules - like asking us to be alerted when the number of `404`'s cross 30% of total API requests etc.
-
-## Sample journey
-
-Let's take a look at a sample sequence of calls to Prometheus and see how it all works.
-
-We know that every time the API is called, the application gives out the total number of API requests. Let's say at the beginning this is 0. Let's assume that the scrape_interval is 1 minute, that is Prometheus calls this API every minute to collect metrics. Here's how some sample responses look like:
-
-**First time - T1**
-
-```
-api_http_requests_total{method="POST"} 0
-```
-
-Assuming there are 21 API calls made in the minute.
-**Second time - T61**
-
-```
-api_http_requests_total{method="POST"} 21
-```
-
-Assuming there are 25 API calls made in the last minute.
-**Second time - T121**
-
-```
-api_http_requests_total{method="POST"} 46
-```
-
-Assuming there are 30 API calls made in the last minute.
-**Third time - T181**
-
-```
-api_http_requests_total{method="POST"} 76
-```
-
-As you can see, the number keeps growing. This type of metric is called a `Counter`.
-
-There are a few different types of metrics
-
-## API structure
-
-Metrics are exposed to Prometheus using a text-based format in the API:
-
-- each metric in a separate line (`\n`)
-- empty lines are ignored
-- last line must
-- `Content-Type` should be `text/plain`
-
-### Sample API response
-
-```bash
-# HELP http_requests_total The total number of HTTP requests.
-# TYPE http_requests_total counter
-http_requests_total{method="post",code="200"} 1027 1395066363000
-http_requests_total{method="post",code="400"}    3 1395066363000
-```
+5. _[Prometheus metrics and API structure](/prometheus-metrics-and-api-structure)_
 
 ## Building the API
+
+I've built a small repository that exposes [Governor Limits on the Org as a Salesforce API for Prometheus here](https://github.com/markgarg/salesforce-api-for-prometheus). It serves as a starting point, or an example of how you could build your own APIs.
+
+Deploy this code to your Salesforce Org and follow the steps in the `README`. The service will be available at `<public site url>/services/apexrest/api/v1/prometheus` and returns a `json` response. As this is an example, the service is exposed on the public site. Please use a proper authentication mechanism when you are using this. [This is the documenation](https://prometheus.io/docs/prometheus/latest/configuration/https/) from Prometheus docs that'll help.
+
+### Overview of the repo
+
+The code in the repository is straight forward. We've exposed one REST API that returns the metrics. It is designed to use a few providers - classes of type `MetricsProvidable` - that respond with a `List` of `PrometheusMetric`s. At the moment, this example only uses a `LimitsMetricProvider` which exposes Governor Limits at the Org level as metrics. 
+
+These `PrometheusMetric` records are then converted to a format acceptable to Prometheus, and then returned in the response.
+
+#### Format
+
+Each metric I've used follows the pattern `sfdc_limits_<limitname>_max` to denote the maximum value allowed by Salesforce (the Limit) or `sfdc_limits_<limitname>_current` to denote the current value used by the system. A simple Grafana expression doing a subtraction will let us know how much we've got left and can easily be alerted on.
+
+Ex.: _Alert when Daily API Requests reach 70%._
+
+Metrics that involve data storage are shown in MB according to Salesforce, and as Prometheus asks us to strip it down to the base metric - bytes in this case - these are converted to bytes and have an extra `_bytes` suffix to indicate as such.
+
+#### Labels
+
+To demonstrate use of labels, I've created a simple label called `environment` that'll let us know whether it's production or other integration environments. You can add your own labels to each of these metrics too.
+
+#### Next steps
+
+You can extend this to have your own provider classes that can, say, expose number of opportunities created or number of cases created etc. You might also want to log any errors too.
+
+### Response
+
+When I deployed this to my scratch org and ran the API, here's a response I got:
+
+```
+sfdc_limits_dailyasyncapexexecutions_max{environment="int"} 250000
+sfdc_limits_dailyasyncapexexecutions_current{environment="int"} 0
+sfdc_limits_dailyapirequests_max{environment="int"} 5000000
+sfdc_limits_dailyapirequests_current{environment="int"} 4
+sfdc_limits_dailybulkapibatches_max{environment="int"} 15000
+sfdc_limits_dailybulkapibatches_current{environment="int"} 0
+sfdc_limits_dailygenericstreamingapievents_max{environment="int"} 10000
+sfdc_limits_dailygenericstreamingapievents_current{environment="int"} 0
+sfdc_limits_dailybulkv2queryfilestoragemb_max_bytes{environment="int"} 1023999475712
+sfdc_limits_dailybulkv2queryfilestoragemb_current_bytes{environment="int"} 0
+```
+
+It's coming along nicely now. Let's integrate this with Prometheus in the next chapter and we'll close off after that.
 
 Next:
 
