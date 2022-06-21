@@ -9,11 +9,9 @@ module.exports = {
     siteTitleAlt: `Rohit Macherla - Solves business problems using Salesforce.com`,
     siteUrl: "https://rohitmacherla.com",
     siteDescription: "Rohit Macherla's portfolio and blog",
+    siteLanguage: `en`,
     siteImage: "/rohit.jpg",
     author: "Rohit Macherla",
-  },
-  flags: {
-    FAST_DEV: true,
   },
   plugins: [
     {
@@ -55,8 +53,8 @@ module.exports = {
       options: {
         enableListener: true,
         preconnect: [`https://fonts.gstatic.com`],
-        interval: 300,
-        timeout: 30000,
+        // If you plan on changing the font you'll also need to adjust the Theme UI config to edit the CSS
+        // See: https://github.com/LekoArts/gatsby-themes/tree/main/examples/minimal-blog#changing-your-fonts
         web: [
           {
             name: `IBM Plex Sans`,
@@ -96,9 +94,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-offline`,
-    `gatsby-plugin-gatsby-cloud`,
-    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -128,7 +123,7 @@ module.exports = {
                   url,
                   guid: url,
                   custom_elements: [{ "content:encoded": content }],
-                };
+                }
               }),
             query: `
               {
@@ -148,6 +143,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-gatsby-cloud`,
     shouldAnalyseBundle && {
       resolve: `gatsby-plugin-webpack-bundle-analyser-v2`,
       options: {
@@ -157,4 +153,4 @@ module.exports = {
       },
     },
   ].filter(Boolean),
-};
+}
