@@ -6,10 +6,6 @@
   "author": "Rohit Macherla <rohit.macherla@gmail.com>",
   "license": "0BSD",
   "starter-name": "gatsby-starter-minimal-blog",
-	"engines": {
-		"node": ">=16.15.1",
-		"npm": ">=8.11.0"
-	},
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
