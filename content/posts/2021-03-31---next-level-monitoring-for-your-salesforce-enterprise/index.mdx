@@ -66,10 +66,12 @@ Building this in-house is not only a big project, but one that takes too long. W
 
 [Prometheus](https://prometheus.io/) is one of the many monitoring and alerting applications out there that fits our bill. Others that you can check include Nagios, InfluxDB, Graphite, to a name a few, but we’ll go ahead with Prometheus as an example.
 
-We’ll install this as a toolkit as we’ll use Prometheus with Grafana (for graphs) and Alert Manager (for alerting). Not to worry, as they are a popular setup, they come together.
+We’ll install Prometheus with Grafana (for graphs) and Alert Manager (for alerting) but don't worry, they are bundled together.
+
+Let us see how it does on the properties of a monitoring system:
 
 <MyList items={[
-  {icon: "checkmark", heading: "Store data", "body": "While the data is within Salesforce, we can setup a REST API in Salesforce and have Prometheus consume it periodically."},
+  {icon: "checkmark", heading: "Store data", "body": "Prometheus stores data in it's own database. We can setup a REST API in Salesforce and have Prometheus consume it periodically to gather metrics."},
   {icon: "checkmark", heading: "Graphs", "body": "Excellent in-built graphs using Grafana, a component that we’ll help us visualize our metrics using PromQL — a query language. It’ll take us an hour to get to know the basics for what we want to achieve."},
   {icon: "checkmark", heading: "Alerts", "body": "Prometheus includes support for configuring alerts, and an in-built “Alert Manager” to send them. This is one of the excellent features that I fell for."}
 ]} />
@@ -77,7 +79,7 @@ We’ll install this as a toolkit as we’ll use Prometheus with Grafana (for gr
 > Alerting with Prometheus is separated into two parts. Alerting rules in Prometheus servers send alerts to an Alertmanager. The Alertmanager then manages those alerts, including silencing, inhibition, aggregation and sending out notifications via methods such as email, on-call notification systems, and chat platforms.
 
 <MyList items={[
-  {icon: "checkmark", heading: "Hosting", "body": "The only drawback would be hosting such a service. Whilst it is a one-time job in setting it up, there’s always maintenance at some point, and someone willing to do it. If you’ve got an IT task force and some internal servers, you could leverage it. Otherwise, you can even host it on Heroku and I’m going to talk about it next."}
+  {icon: "checkmark", heading: "Hosting", "body": "The only drawback would be hosting such a service. Whilst it is a one-time job in setting it up, there’s maintenance work and needs someone willing to do it. If you’ve got an IT task force and some internal servers, you could leverage it. Otherwise, you can even host it on Heroku and I’m going to talk about it next."}
 ]} />
 
 ### Ahem, didn’t you say we’ll have to build an API?
@@ -89,6 +91,6 @@ In the next chapters, we’ll look at setting up Prometheus, building the REST A
 Next:
 - _[Installing Prometheus](/installing-prometheus-on-heroku)_
 - _[Prometheus metrics and API structure](/prometheus-metrics-and-api-structure)_
-- _{Exposing a Salesforce API that Prometheus can call](/creating-salesforce-api-to-invoke-from-prometheus)_
-- _[Wiring it up - Integrating Salesforce with Prometheus](integrating-salesforce-with-prometheus)_
+- _[Exposing a Salesforce API that Prometheus can call](/creating-salesforce-api-to-invoke-from-prometheus)_
+- _[Wiring it up - Integrating Salesforce with Prometheus](/integrating-salesforce-with-prometheus)_
 - _Wrapping the series!_
