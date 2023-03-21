@@ -26,6 +26,9 @@ const getIcon = (name: string) => {
     case 'stackexchange':
       icon = ICONS.StackExchange;
       break;
+    case 'salesforce':
+      icon = ICONS.Salesforce;
+      break;
     default:
       icon = {};
       break;
