@@ -22,7 +22,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-google-tagmanager`,
       options: {
-        id: "GTM-XXXXXXX", // Replace with your GTM container ID
+        id: "GTM-PBRJNRS4", // Replace with your GTM container ID
         
         // Include GTM in development
         // Default: includeInDevelopment = false
