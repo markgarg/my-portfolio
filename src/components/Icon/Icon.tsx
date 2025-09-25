@@ -1,14 +1,12 @@
-// @flow strict
-
 import React from 'react';
 
-type IconProps = {
-    name: string
-    fill: string
+interface IconProps {
+    name: string;
+    fill: string;
     icon: {
-        viewBox?: string
-        path?: string
-    }
+        viewBox?: string;
+        path?: string;
+    };
 }
 
 const Icon = ({ name, fill, icon }: IconProps) => (

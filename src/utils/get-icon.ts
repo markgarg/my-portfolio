@@ -1,40 +1,21 @@
-// @flow strict
-import ICONS from './icon-constants';
+import ICONS, { type IconType } from './icon-constants';
 
-const getIcon = (name: string) => {
-  let icon;
+type IconName = 'twitter' | 'github' | 'email' | 'rss' | 'linkedin' | 'medium' | 'stackexchange' | 'salesforce';
 
-  switch (name.toLowerCase()) {
-    case 'twitter':
-      icon = ICONS.Twitter;
-      break;
-    case 'github':
-      icon = ICONS.GitHub;
-      break;
-    case 'email':
-      icon = ICONS.Email;
-      break;
-    case 'rss':
-      icon = ICONS.RSS;
-      break;
-    case 'linkedin':
-      icon = ICONS.LinkedIn;
-      break;
-    case 'medium':
-      icon = ICONS.Medium;
-      break;
-    case 'stackexchange':
-      icon = ICONS.StackExchange;
-      break;
-    case 'salesforce':
-      icon = ICONS.Salesforce;
-      break;
-    default:
-      icon = {};
-      break;
-  }
+const getIcon = (name: string): IconType | Record<string, never> => {
+  const iconMap: Record<IconName, IconType> = {
+    twitter: ICONS.Twitter,
+    github: ICONS.GitHub,
+    email: ICONS.Email,
+    rss: ICONS.RSS,
+    linkedin: ICONS.LinkedIn,
+    medium: ICONS.Medium,
+    stackexchange: ICONS.StackExchange,
+    salesforce: ICONS.Salesforce,
+  };
 
-  return icon;
+  const iconKey = name.toLowerCase() as IconName;
+  return iconMap[iconKey] || {};
 };
 
 export default getIcon;
