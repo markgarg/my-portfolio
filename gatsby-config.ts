@@ -20,12 +20,34 @@ const config: GatsbyConfig = {
   trailingSlash: `never`,
   plugins: [
     {
-      resolve: `gatsby-plugin-google-gtag`,
+      resolve: `gatsby-plugin-google-tagmanager`,
       options: {
-        // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [
-          "G-1GFVN7ZGG6",
-        ],
+        id: "GTM-XXXXXXX", // Replace with your GTM container ID
+        
+        // Include GTM in development
+        // Default: includeInDevelopment = false
+        includeInDevelopment: true,
+
+        // GTM Environment Details
+        // Default: gtmAuth = false, gtmPreview = false, dataLayerName = "dataLayer"
+        // gtmAuth: "your-gtm-auth", // If using GTM environments
+        // gtmPreview: "your-gtm-preview",
+        dataLayerName: "dataLayer",
+
+        // Specify where to place the GTM script
+        // Default: defaultDataLayer = {...}
+        defaultDataLayer: function () {
+          return {
+            // Default data layer values
+            pageType: typeof window !== 'undefined' ? window.location.pathname : '',
+            siteName: 'Rohit Macherla',
+            buildTime: new Date().toISOString(),
+          }
+        },
+
+        // Control when GTM fires
+        // Default: enableWebVitalsTracking = false
+        enableWebVitalsTracking: true,
       },
     },
     {
