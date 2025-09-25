@@ -21,11 +21,26 @@ const HeaderExternalLinks = () => {
           width: `150px`
         }}>
           {externalLinks.map((link) => (
-            <TLink key={link.url} href={link.url} >
+            <TLink 
+              key={link.url} 
+              href={link.url}
+              aria-label={`Visit ${link.name} profile`}
+              sx={{
+                "&:focus": {
+                  outline: `2px solid`,
+                  outlineOffset: `2px`,
+                  borderRadius: `4px`,
+                },
+              }}
+            >
               <div sx={{ width: `25px`, height: `25px` }}>
-                <Icon name={link.name}
+                <Icon 
+                  name={link.name}
                   icon={getIcon(link.name)}
-                  fill={fill} />
+                  fill={fill}
+                  ariaLabel={`${link.name} icon`}
+                  decorative={false}
+                />
               </div>
             </TLink>
           ))}

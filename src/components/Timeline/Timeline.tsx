@@ -10,23 +10,29 @@ type TimelineProps = {
 
 const Timeline = ({ items }: TimelineProps) => {
     return (
-        <div className="timeline" sx={{
-            minHeight: [`1500px`, `650px`],
-            mx: 0,
-            mb: 0,
-            mt: [`10px`, `30px`],
-            position: `relative`,
-            '&:before': {
-                content: "''",
-                position: `absolute`,
-                left: `50%`,
-                top: `0px`,
-                bottom: `0px`,
-                transform: `translateX(-50%)`,
-                width: `4px`,
-                backgroundColor: `secondary`,
-            },
-        }}>
+        <section 
+            className="timeline" 
+            role="list"
+            aria-label="Career timeline showing professional journey"
+            sx={{
+                minHeight: [`1500px`, `650px`],
+                mx: 0,
+                mb: 0,
+                mt: [`10px`, `30px`],
+                position: `relative`,
+                '&:before': {
+                    content: "''",
+                    position: `absolute`,
+                    left: `50%`,
+                    top: `0px`,
+                    bottom: `0px`,
+                    transform: `translateX(-50%)`,
+                    width: `4px`,
+                    backgroundColor: `secondary`,
+                    'aria-hidden': 'true', // Decorative line
+                },
+            }}
+        >
             <div className="entries" sx={{
                 width: `calc(100% - 80px)`,
                 maxWidth: `800px`,
@@ -35,7 +41,14 @@ const Timeline = ({ items }: TimelineProps) => {
                 left: `-5px`,
             }}>
                 {items.map((item, index) => (
-                    <div className="entry" key={index} sx={{
+                    <article 
+                        className="entry" 
+                        key={index}
+                        role="listitem"
+                        aria-labelledby={`timeline-title-${index}`}
+                        aria-describedby={`timeline-body-${index}`}
+                        tabIndex={0}
+                        sx={{
                         width: [`50%`, `calc(50% - 80px)`],
                         float: `left`,
                         px: `20px`,
@@ -61,44 +74,61 @@ const Timeline = ({ items }: TimelineProps) => {
                             },
                         },
                     }}>
-                        <div className="title" sx={{
-                            fontSize: `32px`,
-                            mb: `12px`,
-                            position: `relative`,
-                            color: `primary`,
-                            "&:before": {
-                                content: '""',
-                                position: `absolute`,
-                                width: `8px`,
-                                height: `8px`,
-                                borderWidth: `4px`,
-                                borderStyle: `solid`,
-                                borderColor: `secondary`,
-                                backgroundColor: `background`,
-                                borderRadius: `100%`,
-                                top: `50%`,
-                                transform: `translateY(-50%)`,
-                                right: [`-28px`, `-113px`],
-                                zIndex: `1000`,
-                            },
-                            "&.big:before": {
-                                width: `24px`,
-                                height: `24px`,
-                                transform: `translate(8px,-50%)`,
-                            },
-                        }}>{item.title}</div>
-                        <div className="body" sx={{
-                            color: `text`,
-                            mt: `-20px`,
-                        }}>
+                        <h3 
+                            id={`timeline-title-${index}`}
+                            className="title" 
+                            sx={{
+                                fontSize: `32px`,
+                                mb: `12px`,
+                                position: `relative`,
+                                color: `primary`,
+                                "&:before": {
+                                    content: '""',
+                                    position: `absolute`,
+                                    width: `8px`,
+                                    height: `8px`,
+                                    borderWidth: `4px`,
+                                    borderStyle: `solid`,
+                                    borderColor: `secondary`,
+                                    backgroundColor: `background`,
+                                    borderRadius: `100%`,
+                                    top: `50%`,
+                                    transform: `translateY(-50%)`,
+                                    right: [`-28px`, `-113px`],
+                                    zIndex: `1000`,
+                                    'aria-hidden': 'true', // Decorative dot
+                                },
+                                "&.big:before": {
+                                    width: `24px`,
+                                    height: `24px`,
+                                    transform: `translate(8px,-50%)`,
+                                },
+                                // Focus styles for keyboard navigation
+                                "&:focus": {
+                                    outline: `2px solid`,
+                                    outlineColor: `primary`,
+                                    outlineOffset: `2px`,
+                                },
+                            }}
+                        >
+                            {item.title}
+                        </h3>
+                        <div 
+                            id={`timeline-body-${index}`}
+                            className="body" 
+                            sx={{
+                                color: `text`,
+                                mt: `-20px`,
+                            }}
+                        >
                             <p sx={{
                                 lineHeight: `1.4em`,
                             }}>{item.body}</p>
                         </div>
-                    </div>
+                    </article>
                 ))}
             </div>
-        </div >
+        </section>
     )
 }
 
