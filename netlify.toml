@@ -1,0 +1,64 @@
+[build]
+  publish = "public"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "23"
+
+# Performance and Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security Headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Performance Headers
+    X-DNS-Prefetch-Control = "on"
+
+# Static Assets Caching (1 year)
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# JavaScript and CSS Caching (1 year)
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images Caching (1 month)
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# HTML Caching (1 hour)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# Enable Brotli and Gzip compression
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Encoding = "br, gzip"
