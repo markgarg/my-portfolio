@@ -1,0 +1,97 @@
+---
+title: Alerts and wrapping the series about monitoring on Salesforce.com
+date: "2025-09-25T20:56:00.000Z"
+slug: "monitoring-alerts-and-wrapping-the-series"
+template: "post"
+draft: false
+category: "monitoring"
+tags:
+  - "monitoring"
+  - "salesforce"
+description: Integrating Salesforce CRM with Prometheus. This post gives an overview of alerting in Prometheus and concludes it.
+---
+
+_This is a part of [series of blog posts about advanced monitoring techniques for your Salesforce.com application](/series-about-monitoring-your-salesforce-enterprise) so your business can rely on the tech team._
+
+_So far, we've covered:_
+
+1. _[A case for better monitoring](/a-case-for-better-monitoring)_
+2. _[Slack alerts for Salesforce.com](/slack-alerts-for-salesforce)_
+3. _[Taking it to the next level for monitoring the Salesforce.com Enterprise](/next-level-monitoring-for-your-salesforce-enterprise)_
+4. _[Installing Prometheus on Heroku](/installing-prometheus-on-heroku)_
+5. _[Prometheus metrics and API structure](/prometheus-metrics-and-api-structure)_
+6. _[Exposing a Salesforce API that Prometheus can call](/creating-salesforce-api-to-invoke-from-prometheus)_
+
+We've now got Prometheus integrated with Salesforce and we can collect metrics. This is a journey and we've just begun it.
+
+We started off with trying to understand the need for enabling a better monitoring on your Salesforce org. We then looked at a simple way of sending alerts to a Slack channel. 
+
+Then we looked at why this isn't enough and why we need to have a proper monitoring system. There are lots of tools and systems that do that, but we chose Prometheus as an example. We then installed it on Heroku and built a simple API in Salesforce that exposes metrics. Finally, we integrated them and got to collect metrics.
+
+Prometheus comes with `Alert Manager` and we can use that to send alerts to Slack. We can also extend it to send alerts to other systems like PagerDuty or your in-house Incident Management system.
+
+## Alerts in Prometheus
+
+Alerts in Prometheus are configured in the `prometheus.yml` file. We can define [a set of rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) that are evaluated against the metrics and if they match, an alert is fired. The alert is then sent to the Alert Manager which can then be configured to send it to Slack or other systems.
+
+Let's take a look at an example:
+
+```yml
+groups:
+- name: example
+  rules:
+
+  # Alert when no new accounts are created in the last 30 minutes.
+  - alert: NoNewAccounts
+    expr: increase(sfdc_accounts_created[30m]) == 0
+    for: 30m
+    labels:
+      severity: high
+    annotations:
+      summary: "No new accounts created in the last 30 minutes"
+      description: "No new accounts created in the last 30 minutes"
+
+  # Alert when daily API requests are more than 90% of the limit.
+  - alert: DailyApiRequestsHigh
+    expr: (sfdc_limits_dailyapirequests_current / sfdc_limits_dailyapirequests_max) > 0.8
+    for: 5m
+    labels:
+      severity: high
+    annotations:
+      summary: "Daily API requests are more than 90% of the limit"
+      description: "Daily API requests are more than 90% of the limit"
+```
+
+The first alert assumes that we have the metric `sfdc_accounts_created`. That is, account creation metrics needed to be sent to Prometheus. It uses the `increase` function to calculate how many new accounts were created in the last 30 minutes and fires an alert if there are none. 
+
+The second alert uses the metrics we've already setup to check if the daily API requests are more than 80% of the limit.
+
+As we can see, Prometheus's query language allows to build some complex rules to alert on. 
+
+
+## Alert Manager
+
+The Alert Manager can send these alerts to any of the configured systems. [It is configured using another yml file](https://prometheus.io/docs/alerting/latest/configuration/) and here's a small configuration to send alerts to Slack:
+
+```yml
+global:
+  # Also possible to place this URL in a file.
+  # Ex: `slack_api_url_file: '/etc/alertmanager/slack_url'`
+  slack_api_url: '<slack_webhook_url>'
+
+route:
+  receiver: 'slack-notifications'
+  group_by: [alertname, datacenter, app]
+
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#alerts-salesforce'
+    text: 'Notification for {{ .GroupLabels.app }}/{{ .GroupLabels.alertname }}. Please check!'
+```
+
+## Conclusion
+
+That's it! We now have a complete monitoring system for our Salesforce org, that shows us graphs that can be put on a monitor for your team to look at frequently, and a great alerting system that can be configured to send alerts to where your team can check them.
+
+There are more tools that can be used to build a monitoring system, and I'll keep reviewing this series as I learn more about them.
