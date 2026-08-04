@@ -1,133 +1,231 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import { useState } from "react"
+
+type TimelineItem = {
+    period: string
+    role: string
+    company: string
+    location?: string
+    summary: string
+    description?: string
+    highlights?: string[]
+    tech?: string[]
+}
 
 type TimelineProps = {
-    items: {
-        title: string,
-        body: string,
-    }[],
+    items: TimelineItem[]
 }
 
 const Timeline = ({ items }: TimelineProps) => {
+    const [open, setOpen] = useState<Record<number, boolean>>({})
+    const toggle = (i: number) => setOpen((s) => ({ ...s, [i]: !s[i] }))
+
     return (
-        <section 
-            className="timeline" 
+        <section
+            className="timeline"
             role="list"
             aria-label="Career timeline showing professional journey"
             sx={{
-                minHeight: [`1500px`, `650px`],
-                mx: 0,
-                mb: 0,
-                mt: [`10px`, `30px`],
                 position: `relative`,
-                '&:before': {
-                    content: "''",
+                maxWidth: `820px`,
+                mx: `auto`,
+                mt: [`16px`, `30px`],
+                "&:before": {
+                    content: '""',
                     position: `absolute`,
                     left: `50%`,
-                    top: `0px`,
-                    bottom: `0px`,
+                    top: 0,
+                    bottom: 0,
+                    width: `3px`,
                     transform: `translateX(-50%)`,
-                    width: `4px`,
-                    backgroundColor: `secondary`,
-                    'aria-hidden': 'true', // Decorative line
+                    background: `linear-gradient(var(--theme-ui-colors-primary), var(--theme-ui-colors-divide))`,
+                },
+                "&:after": { content: '""', display: `table`, clear: `both` },
+                "@media (max-width: 760px)": {
+                    "&:before": { left: `7px`, transform: `none` },
                 },
             }}
         >
-            <div className="entries" sx={{
-                width: `calc(100% - 80px)`,
-                maxWidth: `800px`,
-                margin: `auto`,
-                position: `relative`,
-                left: `-5px`,
-            }}>
-                {items.map((item, index) => (
-                    <article 
-                        className="entry" 
+            {items.map((item, index) => {
+                const isOpen = !!open[index]
+                return (
+                    <article
+                        className={`entry${isOpen ? ` is-open` : ``}`}
                         key={index}
                         role="listitem"
                         aria-labelledby={`timeline-title-${index}`}
-                        aria-describedby={`timeline-body-${index}`}
+                        aria-describedby={`timeline-detail-${index}`}
+                        aria-expanded={isOpen}
                         tabIndex={0}
+                        onClick={() => toggle(index)}
+                        onKeyDown={(e) => {
+                            if (e.key === `Enter` || e.key === ` `) {
+                                e.preventDefault()
+                                toggle(index)
+                            }
+                        }}
                         sx={{
-                        width: [`50%`, `calc(50% - 80px)`],
-                        float: `left`,
-                        px: `20px`,
-                        pl: [0, `20px`],
-                        pr: [`15px`, `20px`],
-                        clear: `both`,
-                        textAlign: `right`,
-                        "&:not(:first-of-type)": {
-                            marginTop: [0, `-30px`],
-                        },
-                        "&:nth-of-type(2n)": {
-                            textAlign: `left`,
-                            float: `right`,
-                            pr: [0, `20px`],
-                            pl: [`20px`, `20px`],
-                            ".title": {
-                                "&:before": {
-                                    left: [`-23px`, `-103px`],
-                                },
-                                "&.big:before": {
-                                    transform: `translate(-8px,-50%)`,
-                                },
+                            position: `relative`,
+                            width: `50%`,
+                            px: `40px`,
+                            py: `14px`,
+                            clear: `both`,
+                            outline: `none`,
+                            "&:nth-of-type(odd)": { float: `left`, textAlign: `right` },
+                            "&:nth-of-type(even)": { float: `right`, textAlign: `left` },
+                            "&:nth-of-type(odd) .tl-dot": { right: `-7px` },
+                            "&:nth-of-type(even) .tl-dot": { left: `-7px` },
+                            "&:focus-visible": {
+                                outline: `2px solid`,
+                                outlineColor: `primary`,
+                                outlineOffset: `2px`,
+                                borderRadius: `12px`,
                             },
-                        },
-                    }}>
-                        <h3 
-                            id={`timeline-title-${index}`}
-                            className="title" 
+                            "&:hover .tl-card, &:focus-within .tl-card, &.is-open .tl-card": {
+                                transform: `translateY(-4px)`,
+                                boxShadow: `0 12px 30px rgba(0,0,0,0.14)`,
+                                borderColor: `primary`,
+                            },
+                            "&:hover .tl-detail, &:focus-within .tl-detail, &.is-open .tl-detail": {
+                                maxHeight: `1000px`,
+                                opacity: 1,
+                                mt: `12px`,
+                                pt: `12px`,
+                                borderTopColor: `divide`,
+                            },
+                            "@media (max-width: 760px)": {
+                                width: `100%`,
+                                float: `none`,
+                                textAlign: `left`,
+                                pl: `34px`,
+                                pr: 0,
+                                "& .tl-dot": { left: `0px`, right: `auto` },
+                            },
+                        }}
+                    >
+                        <span
+                            className="tl-dot"
+                            aria-hidden="true"
                             sx={{
-                                fontSize: `32px`,
-                                mb: `12px`,
-                                position: `relative`,
-                                color: `primary`,
-                                "&:before": {
-                                    content: '""',
-                                    position: `absolute`,
-                                    width: `8px`,
-                                    height: `8px`,
-                                    borderWidth: `4px`,
-                                    borderStyle: `solid`,
-                                    borderColor: `secondary`,
-                                    backgroundColor: `background`,
-                                    borderRadius: `100%`,
-                                    top: `50%`,
-                                    transform: `translateY(-50%)`,
-                                    right: [`-28px`, `-113px`],
-                                    zIndex: `1000`,
-                                    'aria-hidden': 'true', // Decorative dot
-                                },
-                                "&.big:before": {
-                                    width: `24px`,
-                                    height: `24px`,
-                                    transform: `translate(8px,-50%)`,
-                                },
-                                // Focus styles for keyboard navigation
-                                "&:focus": {
-                                    outline: `2px solid`,
-                                    outlineColor: `primary`,
-                                    outlineOffset: `2px`,
-                                },
+                                position: `absolute`,
+                                top: `26px`,
+                                width: `14px`,
+                                height: `14px`,
+                                borderRadius: `50%`,
+                                backgroundColor: `background`,
+                                border: `3px solid`,
+                                borderColor: `primary`,
+                                zIndex: 2,
+                            }}
+                        />
+                        <div
+                            className="tl-card"
+                            sx={{
+                                textAlign: `left`,
+                                backgroundColor: `background`,
+                                border: `1px solid`,
+                                borderColor: `divide`,
+                                borderRadius: `12px`,
+                                p: `16px 18px`,
+                                boxShadow: `0 1px 2px rgba(0,0,0,0.10)`,
+                                cursor: `pointer`,
+                                transition: `transform .25s ease, box-shadow .25s ease, border-color .25s ease`,
                             }}
                         >
-                            {item.title}
-                        </h3>
-                        <div 
-                            id={`timeline-body-${index}`}
-                            className="body" 
-                            sx={{
-                                color: `text`,
-                                mt: `-20px`,
-                            }}
-                        >
-                            <p sx={{
-                                lineHeight: `1.4em`,
-                            }}>{item.body}</p>
+                            <span
+                                className="tl-period"
+                                sx={{
+                                    display: `inline-block`,
+                                    fontSize: `13px`,
+                                    fontWeight: 700,
+                                    letterSpacing: `0.04em`,
+                                    textTransform: `uppercase`,
+                                    color: `primary`,
+                                }}
+                            >
+                                {item.period}
+                            </span>
+                            <h3
+                                id={`timeline-title-${index}`}
+                                className="title"
+                                sx={{
+                                    color: `heading`,
+                                    fontWeight: 700,
+                                    fontSize: `21px`,
+                                    lineHeight: 1.3,
+                                    mt: `4px`,
+                                    mb: 0,
+                                }}
+                            >
+                                {item.role}
+                            </h3>
+                            <div sx={{ color: `secondary`, fontSize: `16px`, mt: `2px` }}>
+                                {item.company}
+                            </div>
+                            <p sx={{ color: `text`, fontSize: `20px`, lineHeight: 1.55, mt: `10px`, mb: 0 }}>
+                                {item.summary}
+                            </p>
+
+                            <div
+                                id={`timeline-detail-${index}`}
+                                className="tl-detail"
+                                sx={{
+                                    maxHeight: 0,
+                                    overflow: `hidden`,
+                                    opacity: 0,
+                                    mt: 0,
+                                    borderTop: `1px dashed transparent`,
+                                    transition: `max-height .35s ease, opacity .3s ease, margin .3s ease, padding .3s ease`,
+                                }}
+                            >
+                                {item.description && (
+                                    <p sx={{ color: `text`, fontSize: `18px`, lineHeight: 1.55, m: `0 0 10px` }}>
+                                        {item.description}
+                                    </p>
+                                )}
+                                {item.highlights && item.highlights.length > 0 && (
+                                    <ul sx={{ m: `0 0 12px`, pl: `20px` }}>
+                                        {item.highlights.map((h, i) => (
+                                            <li key={i} sx={{ color: `text`, fontSize: `18px`, lineHeight: 1.55, m: `6px 0` }}>
+                                                {h}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                                {item.tech && item.tech.length > 0 && (
+                                    <div>
+                                        {item.tech.map((t, i) => (
+                                            <span
+                                                key={i}
+                                                sx={{
+                                                    display: `inline-block`,
+                                                    bg: `muted`,
+                                                    color: `primary`,
+                                                    fontSize: `13px`,
+                                                    fontWeight: 600,
+                                                    px: `10px`,
+                                                    py: `4px`,
+                                                    borderRadius: `999px`,
+                                                    mr: `6px`,
+                                                    mb: `6px`,
+                                                }}
+                                            >
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                                {item.location && (
+                                    <div sx={{ color: `secondary`, fontSize: `14px`, mt: `4px` }}>
+                                        📍 {item.location}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </article>
-                ))}
-            </div>
+                )
+            })}
         </section>
     )
 }
