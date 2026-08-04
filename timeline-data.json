@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "period": "March 2021 — Present",
+      "role": "Lead Developer / Architect",
+      "company": "Sky - NOW TV",
+      "location": "London, United Kingdom",
+      "summary": "Leading high-volume Salesforce engineering, Observability, CI/CD modernisation and AI adoption for Peacock (NBCU), NOW TV (UK), Sky Showtime (Europe), WOW TV (Germany), Sky Showmax (Africa) Salesforce orgs",
+      "description": "",
+      "highlights": [
+        "Scaling Salesforce orgs to handle millions of events during the NFL Super Bowl, Olympics and FIFA World Cup",
+        "Championed Observability best practices by driving integration of Prometheus metrics via custom REST APIs and Datadog",
+        "Modernised CI/CD by migrating all Jenkins pipelines to GitHub Actions, adding static code analysis (Salesforce Code Analyzer), API Integration tests, and a UI regression test suite",
+        "Architected a proposition-agnostic feature flag framework, letting multiple business propositions share a codebase and reducing time-to-market for new launches",
+        "Led the team's AI adoption journey, driving agentic workflows and running a RAG proof-of-concept in Salesforce",
+        "Mentored developers through to Senior level, directly contributing to their career progression"
+      ],
+      "tech": ["Salesforce", "GitHub Actions", "Datadog", "Prometheus", "AI", "Open API"]
+    },
+    {
+      "period": "March 2017 — March 2021",
+      "role": "Senior Salesforce, ReactJS and Scala Developer",
+      "company": "Sky - NOW TV",
+      "location": "London, United Kingdom",
+      "summary": "Building Salesforce, ReactJS and Scala solutions for multiple Salesforce orgs",
+      "description": "",
+      "highlights": [
+        "Led development of multi-territory and multi-language Salesforce orgs",
+        "Built pre-chat widgets in ReactJS integrated with Embedded Service Snap-ins on the enhanced Salesforce Live chat platform",
+        "Developed the CRM Adapter application in Scala, integrated with Kafka and deployed to the internal core-platform via Kubernetes"
+      ],
+      "tech": ["Salesforce", "Apex", "ReactJS", "Scala", "Kafka", "Kubernetes"]
+    },
+    {
+      "period": "December 2015 — March 2017",
+      "role": "Salesforce and Python Developer",
+      "company": "Sky - Sky Tickets",
+      "location": "London, United Kingdom",
+      "summary": "Sole Salesforce architect cum developer for Sky's ticketing startup, with a Python/Cassandra integration.",
+      "description": "Sky Tickets was an internal startup within Sky for selling tickets online.",
+      "highlights": [
+        "As the only Salesforce architect/developer/admin, implemented a Customer Contact Centre with Salesforce Service Cloud serving thousands of customers",
+        "Built the CI pipelines in Jenkins",
+        "Built a connected app to show customer details hosted in a Cassandra database inside Salesforce (via a Python app)",
+        "Synced data from the primary Cassandra database with Salesforce using periodic Account data transfer via Python and Celery workers",
+        "Implemented user stories in Django as a Python developer",
+        "Integrated Salesforce with the Barclays payment management system"
+      ],
+      "tech": ["Salesforce", "Python", "Django", "Cassandra", "Celery", "Jenkins"]
+    },
+    {
+      "period": "December 2014 — December 2015",
+      "role": "Specialist Senior — Technology",
+      "company": "Deloitte U.S. India Offices",
+      "location": "Hyderabad, India",
+      "summary": "Salesforce architect/senior developer for 21st Century Fox and Kaplan International.",
+      "description": "",
+      "highlights": [
+        "Architect/Senior Developer in Salesforce.com across multiple projects",
+        "Developed a lightweight Salesforce UI app for planning movie releases, replacing a very slow Visualforce page with asynchronous backend calls for 21st Century Fox",
+        "Built prototypes demonstrating Deloitte Digital capability in Salesforce Aura Lightning",
+        "Architected and led a team of 4 to build a Technical Design Document generator using the Salesforce Metadata API, Tooling API, and Java with HTML/Bootstrap hosted on Heroku"
+      ],
+      "tech": ["Salesforce", "Apex", "Visualforce", "Lightning", "Metadata API", "Tooling API", "Java", "Heroku"]
+    },
+    {
+      "period": "July 2013 — December 2014",
+      "role": "Node.js / Salesforce Lead Developer — Sky Tickets",
+      "company": "Tata Consultancy Services",
+      "location": "London, UK / Mumbai, India",
+      "summary": "Lead developer delivering the Sky Tickets platform on Salesforce + Node.js (featured at Dreamforce 2014).",
+      "description": "Designed, built and delivered the Sky Tickets ticketing platform on Salesforce and Node.js.",
+      "highlights": [
+        "Featured in Dreamforce 2014",
+        "Design, build and delivery of the ticketing platform",
+        "Rapidly learned Node.js and integrated the Node app with Salesforce using OAuth/Canvas",
+        "Developed customer journey and event management in Salesforce using Customer Communities (Apex, Visualforce)",
+        "Integrated with a partner ticketing application via REST API",
+        "Built CI with Jenkins for Node.js and Salesforce",
+        "Built an API catalogue engine in Node.js using scheduled workers on Heroku with Heroku Connect (Postgres)",
+        "Implemented a smart logging mechanism for the First Line Support team via Heroku Logdrains",
+        "One of the first teams to use Heroku Connect; used Memcachier, Redis and Iron Workers"
+      ],
+      "tech": ["Salesforce", "Apex", "Visualforce", "Node.js", "Heroku", "Heroku Connect", "Postgres", "Redis", "Jenkins"]
+    },
+    {
+      "period": "May 2011 — June 2013",
+      "role": "Salesforce Developer / Senior Java Developer",
+      "company": "Tata Consultancy Services",
+      "location": "Hyderabad / Bengaluru, India",
+      "summary": "Salesforce and Senior Java developer for Cisco Capital Sales IT.",
+      "description": "Gathered requirements and delivered Salesforce.com solutions for Cisco's Capital Sales IT wing.",
+      "highlights": [
+        "Gathered requirements and built solutions in Salesforce.com for the Cisco Capital Sales IT wing",
+        "Integrated Salesforce.com with in-house applications using custom Web Services (SOAP and REST)",
+        "Implemented Territory Management and customised sharing rules using Apex logic",
+        "Customised sales forecasting with Territory Management to map multiple territories with Accounts"
+      ],
+      "tech": ["Salesforce", "Sales Cloud", "Forecasting", "Apex", "Visualforce", "SOAP API", "REST API"]
+    },
+    {
+      "period": "February 2008 — April 2011",
+      "role": "Java Developer Tech Lead — BSNL",
+      "company": "Tata Consultancy Services",
+      "location": "Hyderabad, India",
+      "summary": "Java Tech lead on BSNL's OSS/BSS provisioning system, tuning throughput and performance.",
+      "description": "Led development of the Clarity OSS/BSS Provisioning System for BSNL, India's largest fixed-line telephone provider, integrating with Siebel CRM, Kenan Billing and Oracle BPEL systems.",
+      "highlights": [
+        "Architected and developed all integrations as JAX-WS style Web Services",
+        "Developed Dunning process scheduled jobs handling 100,000+ records per night in under 30 minutes",
+        "Increased order creation rate from 40 orders/min to over 200 orders/min",
+        "Reduced memory utilisation by over 800MB as in-house Java performance consultant",
+        "JBoss Application Server advanced administration: clustering and load balancing",
+        "Responsible for capacity planning and server upgrades (JBoss 4.2.3 to 5.1)",
+        "POCs for Oracle WebCache and Apache mod_jk load balancers"
+      ],
+      "tech": ["Java", "SOAP API", "REST API", "JBoss", "Oracle PL/SQL"]
+    },
+    {
+      "period": "October 2006 — February 2008",
+      "role": "Jr. Java Developer — USAA",
+      "company": "Tata Consultancy Services",
+      "location": "Chennai, India",
+      "summary": "Junior Java developer on USAA's Retirement Planner.",
+      "description": "Developed and tested core functionality for USAA's Retirement Planner.",
+      "highlights": [
+      ],
+      "tech": ["Java"]
+    },
+    {
+      "period": "May 2005 — July 2005",
+      "role": "Student Intern",
+      "company": "Progress Software (formerly Sonic Software)",
+      "location": "India",
+      "summary": "Intern building JMS message components for Enterprise Service Bus applications.",
+      "description": "Summer internship building messaging components for Enterprise Service Bus applications.",
+      "highlights": [
+        "Designed and developed Message Senders, Listeners and Trackers for ESB applications using Java Messaging Service (JMS)",
+        "Developed a generic Message Editor for various MIME formats"
+      ],
+      "tech": ["Java", "JMS"]
+    },
+    {
+      "period": "2002 — 2006",
+      "role": "Bachelor of Engineering in Computer Science & Engineering",
+      "company": "Osmania University",
+      "location": "Hyderabad, India",
+      "summary": "",
+      "description": "",
+      "highlights": [],
+      "tech": []
+    }
+  ]
+}
