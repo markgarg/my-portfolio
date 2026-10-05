@@ -36,7 +36,7 @@ const EnhancedSEO = ({
   description = "Rohit Macherla's portfolio and blog about software development, Salesforce, and technology solutions.",
   type = "website",
   url = "https://rohitmacherla.com",
-  image = "https://rohitmacherla.com/rohit.jpg",
+  image = "https://rohitmacherla.com/media/android-chrome-512x512.png",
   twitterCard = "summary_large_image",
   article,
   includePerson = false,

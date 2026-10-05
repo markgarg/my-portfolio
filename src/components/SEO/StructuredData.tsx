@@ -111,7 +111,6 @@ export const createPersonSchema = (overrides: Partial<PersonSchema> = {}): Perso
     "https://stackexchange.com/users/183803/markgarg",
     "https://trailblazer.me/id/rmacherla1"
   ],
-  image: "https://rohitmacherla.com/rohit.jpg",
   knowsAbout: [
     "Salesforce.com",
     "Java",

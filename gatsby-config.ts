@@ -14,7 +14,7 @@ const config: GatsbyConfig = {
     siteUrl: "https://rohitmacherla.com",
     siteDescription: "Rohit Macherla's portfolio and blog",
     siteLanguage: `en`,
-    siteImage: "/rohit.jpg",
+    siteImage: "/media/android-chrome-512x512.png",
     author: "Rohit Macherla",
   },
   trailingSlash: `never`,
