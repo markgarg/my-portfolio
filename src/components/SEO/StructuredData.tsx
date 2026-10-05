@@ -103,7 +103,7 @@ export const createPersonSchema = (overrides: Partial<PersonSchema> = {}): Perso
   "@type": "Person",
   name: "Rohit Macherla",
   jobTitle: "Salesforce Developer & Solutions Architect",
-  description: "Passionate software developer with expertise in Salesforce.com, Java, Python, React.js, and Scala. Solves business problems with technology.",
+  description: "Passionate software developer with expertise in Salesforce, Java, Python, React, and Scala. Solves business problems with technology.",
   url: "https://rohitmacherla.com",
   sameAs: [
     "https://github.com/markgarg",
@@ -112,10 +112,10 @@ export const createPersonSchema = (overrides: Partial<PersonSchema> = {}): Perso
     "https://trailblazer.me/id/rmacherla1"
   ],
   knowsAbout: [
-    "Salesforce.com",
+    "Salesforce",
     "Java",
     "Python", 
-    "React.js",
+    "React",
     "JavaScript",
     "TypeScript",
     "Node.js",

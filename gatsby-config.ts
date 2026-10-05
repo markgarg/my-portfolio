@@ -10,7 +10,7 @@ const config: GatsbyConfig = {
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-minimal-blog/gatsby-config.mjs
     siteTitle: "Rohit Macherla",
-    siteTitleAlt: `Rohit Macherla - Solves business problems using Salesforce.com`,
+    siteTitleAlt: `Rohit Macherla - Solves business problems using Salesforce`,
     siteUrl: "https://rohitmacherla.com",
     siteDescription: "Rohit Macherla's portfolio and blog",
     siteLanguage: `en`,
