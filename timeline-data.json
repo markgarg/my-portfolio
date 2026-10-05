@@ -15,21 +15,21 @@
         "Led the team's AI adoption journey, driving agentic workflows and running a RAG proof-of-concept in Salesforce",
         "Mentored developers through to Senior level, directly contributing to their career progression"
       ],
-      "tech": ["Salesforce", "GitHub Actions", "Datadog", "Prometheus", "AI", "Open API"]
+      "tech": ["Salesforce", "GitHub Actions", "Datadog", "Prometheus", "AI", "OpenAPI"]
     },
     {
       "period": "March 2017 — March 2021",
-      "role": "Senior Salesforce, ReactJS and Scala Developer",
+      "role": "Senior Salesforce, React and Scala Developer",
       "company": "Sky - NOW TV",
       "location": "London, United Kingdom",
-      "summary": "Building Salesforce, ReactJS and Scala solutions for multiple Salesforce orgs",
+      "summary": "Building Salesforce, React and Scala solutions for multiple Salesforce orgs",
       "description": "",
       "highlights": [
         "Led development of multi-territory and multi-language Salesforce orgs",
-        "Built pre-chat widgets in ReactJS integrated with Embedded Service Snap-ins on the enhanced Salesforce Live chat platform",
+        "Built pre-chat widgets in React integrated with Embedded Service Snap-ins on the enhanced Salesforce Live chat platform",
         "Developed the CRM Adapter application in Scala, integrated with Kafka and deployed to the internal core-platform via Kubernetes"
       ],
-      "tech": ["Salesforce", "Apex", "ReactJS", "Scala", "Kafka", "Kubernetes"]
+      "tech": ["Salesforce", "Apex", "React", "Scala", "Kafka", "Kubernetes"]
     },
     {
       "period": "December 2015 — March 2017",
@@ -56,7 +56,7 @@
       "summary": "Salesforce architect/senior developer for 21st Century Fox and Kaplan International.",
       "description": "",
       "highlights": [
-        "Architect/Senior Developer in Salesforce.com across multiple projects",
+        "Architect/Senior Developer in Salesforce across multiple projects",
         "Developed a lightweight Salesforce UI app for planning movie releases, replacing a very slow Visualforce page with asynchronous backend calls for 21st Century Fox",
         "Built prototypes demonstrating Deloitte Digital capability in Salesforce Aura Lightning",
         "Architected and led a team of 4 to build a Technical Design Document generator using the Salesforce Metadata API, Tooling API, and Java with HTML/Bootstrap hosted on Heroku"
@@ -89,10 +89,10 @@
       "company": "Tata Consultancy Services",
       "location": "Hyderabad / Bengaluru, India",
       "summary": "Salesforce and Senior Java developer for Cisco Capital Sales IT.",
-      "description": "Gathered requirements and delivered Salesforce.com solutions for Cisco's Capital Sales IT wing.",
+      "description": "Gathered requirements and delivered Salesforce solutions for Cisco's Capital Sales IT wing.",
       "highlights": [
-        "Gathered requirements and built solutions in Salesforce.com for the Cisco Capital Sales IT wing",
-        "Integrated Salesforce.com with in-house applications using custom Web Services (SOAP and REST)",
+        "Gathered requirements and built solutions in Salesforce for the Cisco Capital Sales IT wing",
+        "Integrated Salesforce with in-house applications using custom Web Services (SOAP and REST)",
         "Implemented Territory Management and customised sharing rules using Apex logic",
         "Customised sales forecasting with Territory Management to map multiple territories with Accounts"
       ],
@@ -112,13 +112,13 @@
         "Reduced memory utilisation by over 800MB as in-house Java performance consultant",
         "JBoss Application Server advanced administration: clustering and load balancing",
         "Responsible for capacity planning and server upgrades (JBoss 4.2.3 to 5.1)",
-        "POCs for Oracle WebCache and Apache mod_jk load balancers"
+        "prototypes for Oracle WebCache and Apache mod_jk load balancers"
       ],
       "tech": ["Java", "SOAP API", "REST API", "JBoss", "Oracle PL/SQL"]
     },
     {
       "period": "October 2006 — February 2008",
-      "role": "Jr. Java Developer — USAA",
+      "role": "Junior Java Developer — USAA",
       "company": "Tata Consultancy Services",
       "location": "Chennai, India",
       "summary": "Junior Java developer on USAA's Retirement Planner.",
