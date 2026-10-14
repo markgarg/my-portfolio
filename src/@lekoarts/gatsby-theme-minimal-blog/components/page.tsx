@@ -31,6 +31,7 @@ export default Page
 
 export const Head: HeadFC<MBPageProps> = ({ data: { page } }) => {
   const isAboutPage = page.slug === `/about` || page.slug === `about`
+  const isCareerPage = page.slug === `/career` || page.slug === `career`
 
   if (isAboutPage) {
     return (
@@ -40,6 +41,18 @@ export const Head: HeadFC<MBPageProps> = ({ data: { page } }) => {
         pathname={page.slug}
       >
         <StructuredData person={createPersonSchema()} />
+      </Seo>
+    )
+  }
+
+  if (isCareerPage) {
+    return (
+      <Seo
+        title="Career Timeline — Rohit Macherla"
+        description="20+ year software engineering and Salesforce architecture career timeline across Sky, Deloitte, and Tata Consultancy Services."
+        pathname={page.slug}
+      >
+        <StructuredData person={createPersonSchema({ url: "https://rohitmacherla.com/career" })} />
       </Seo>
     )
   }

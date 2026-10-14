@@ -63,6 +63,10 @@ const config: GatsbyConfig = {
             title: `About`,
             slug: `/about`,
           },
+          {
+            title: `Career`,
+            slug: `/career`,
+          },
         ],
         externalLinks: [
           {

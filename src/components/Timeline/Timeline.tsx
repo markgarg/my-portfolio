@@ -1,6 +1,22 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
+import { keyframes } from "@emotion/react"
 import { useState } from "react"
+
+const pulseRing = keyframes`
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.65;
+    }
+    75% {
+        transform: translateX(-50%) scale(2.4);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-50%) scale(2.4);
+        opacity: 0;
+    }
+`
 
 type TimelineItem = {
     period: string
@@ -50,18 +66,24 @@ const Timeline = ({ items }: TimelineProps) => {
     }
 
     return (
-        <div sx={{ maxWidth: `820px`, mx: `auto`, mt: [`16px`, `24px`] }}>
+        <div sx={{ maxWidth: `920px`, mx: `auto`, mt: [`16px`, `24px`] }}>
+            <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap"
+            />
             <div
                 sx={{
                     display: `flex`,
+                    flexWrap: `wrap`,
                     justifyContent: `space-between`,
                     alignItems: `center`,
+                    gap: `8px`,
                     mb: `12px`,
                     px: [`4px`, 0],
                 }}
             >
-                <span sx={{ color: `secondary`, fontSize: `14px` }}>
-                    Select any role to view achievements and tech stack
+                <span sx={{ color: `secondary`, fontSize: [`13px`, `14px`] }}>
+                    Tap any role to view achievements and tech stack
                 </span>
                 <button
                     type="button"
@@ -77,6 +99,8 @@ const Timeline = ({ items }: TimelineProps) => {
                         fontWeight: 600,
                         px: `12px`,
                         py: `6px`,
+                        whiteSpace: `nowrap`,
+                        flexShrink: 0,
                         cursor: `pointer`,
                         transition: `background-color .2s ease, border-color .2s ease`,
                         "&:hover": {
@@ -102,7 +126,7 @@ const Timeline = ({ items }: TimelineProps) => {
                     "&:before": {
                         content: '""',
                         position: `absolute`,
-                        left: [`14px`, `20px`],
+                        left: [`92px`, `190px`],
                         top: 0,
                         bottom: 0,
                         width: `3px`,
@@ -122,6 +146,7 @@ const Timeline = ({ items }: TimelineProps) => {
                     {items.map((item, index) => {
                         const hasDetails = itemHasDetails(item)
                         const isOpen = hasDetails && !!open[index]
+                        const isCurrentRole = index === 0 || /present/i.test(item.period)
                         const detailId = `timeline-detail-${index}`
                         const titleId = `timeline-title-${index}`
 
@@ -146,12 +171,16 @@ const Timeline = ({ items }: TimelineProps) => {
                                 }
                                 sx={{
                                     position: `relative`,
+                                    display: `grid`,
+                                    gridTemplateColumns: [`76px 1fr`, `164px 1fr`],
+                                    columnGap: [`32px`, `52px`],
+                                    alignItems: `start`,
                                     width: `100%`,
-                                    pl: [`38px`, `48px`],
-                                    pr: 0,
-                                    py: `14px`,
+                                    boxSizing: `border-box`,
+                                    py: [`10px`, `14px`],
                                     outline: `none`,
                                     cursor: hasDetails ? `pointer` : `default`,
+                                    WebkitTapHighlightColor: `transparent`,
                                     "&:focus-visible": {
                                         outline: `none`,
                                     },
@@ -160,72 +189,91 @@ const Timeline = ({ items }: TimelineProps) => {
                                         outlineColor: `primary`,
                                         outlineOffset: `2px`,
                                     },
-                                    "&:hover .tl-card, &.is-open .tl-card": {
-                                        transform: hasDetails ? `translateY(-2px)` : `none`,
-                                        boxShadow: `0 8px 24px rgba(0,0,0,0.12)`,
-                                        borderColor: `primary`,
-                                    },
-                                    "&:hover .tl-dot, &.is-open .tl-dot": {
-                                        backgroundColor: `primary`,
-                                    },
-                                    "&.is-open .tl-chevron": {
-                                        transform: `rotate(180deg)`,
-                                        color: `primary`,
-                                    },
-                                    "&.is-open .tl-detail": {
-                                        maxHeight: `1200px`,
-                                        opacity: 1,
-                                        mt: `14px`,
-                                        pt: `14px`,
-                                        borderTopColor: `divide`,
-                                    },
-                                    "@media (prefers-reduced-motion: reduce)": {
-                                        "&:hover .tl-card, &.is-open .tl-card": {
-                                            transform: `none`,
-                                        },
-                                        "&.is-open .tl-chevron": {
-                                            transform: `none`,
-                                        },
-                                        "& .tl-card, & .tl-dot, & .tl-detail, & .tl-chevron": {
-                                            transition: `none !important`,
-                                        },
-                                    },
                                 }}
                             >
+                                {/* Left column: Years / Period */}
+                                <div
+                                    className="tl-period"
+                                    sx={{
+                                        textAlign: `right`,
+                                        pt: [`18px`, `24px`],
+                                        pr: [`4px`, `8px`],
+                                        fontFamily: `'Kalam', cursive`,
+                                        fontSize: [`15px`, `19px`],
+                                        fontWeight: 700,
+                                        lineHeight: 1.2,
+                                        letterSpacing: `0.02em`,
+                                        color: `primary`,
+                                        wordBreak: `break-word`,
+                                        transform: `rotate(-20deg)`,
+                                        transformOrigin: `right center`,
+                                    }}
+                                >
+                                    {item.period}
+                                </div>
+
+                                {/* Center timeline dot */}
+                                {isCurrentRole && (
+                                    <span
+                                        className="tl-dot-pulse"
+                                        aria-hidden="true"
+                                        sx={{
+                                            position: `absolute`,
+                                            top: [`26px`, `34px`],
+                                            left: [`92px`, `190px`],
+                                            transform: `translateX(-50%)`,
+                                            width: [`14px`, `16px`],
+                                            height: [`14px`, `16px`],
+                                            boxSizing: `border-box`,
+                                            borderRadius: `50%`,
+                                            backgroundColor: `primary`,
+                                            pointerEvents: `none`,
+                                            zIndex: 1,
+                                            animation: `${pulseRing} 2s cubic-bezier(0, 0, 0.2, 1) infinite`,
+                                        }}
+                                    />
+                                )}
                                 <span
                                     className="tl-dot"
                                     aria-hidden="true"
                                     sx={{
                                         position: `absolute`,
-                                        top: `26px`,
-                                        left: [`14px`, `20px`],
+                                        top: [`26px`, `34px`],
+                                        left: [`92px`, `190px`],
                                         transform: `translateX(-50%)`,
-                                        width: `14px`,
-                                        height: `14px`,
+                                        width: [`14px`, `16px`],
+                                        height: [`14px`, `16px`],
+                                        boxSizing: `border-box`,
                                         borderRadius: `50%`,
-                                        backgroundColor: `background`,
+                                        backgroundColor: isCurrentRole || isOpen ? `primary` : `background`,
                                         border: `3px solid`,
                                         borderColor: `primary`,
                                         zIndex: 2,
                                         transition: `background-color .2s ease`,
-                                        "@media (prefers-reduced-motion: reduce)": {
-                                            transition: `none`,
-                                        },
                                     }}
                                 />
+
+                                {/* Right column: Role & Details Card */}
                                 <div
                                     className="tl-card"
                                     sx={{
                                         textAlign: `left`,
                                         backgroundColor: `background`,
                                         border: `1px solid`,
-                                        borderColor: `divide`,
+                                        borderColor: isOpen ? `primary` : `divide`,
                                         borderRadius: `12px`,
-                                        p: `16px 18px`,
-                                        boxShadow: `0 1px 2px rgba(0,0,0,0.10)`,
-                                        transition: `transform .25s ease, box-shadow .25s ease, border-color .25s ease`,
-                                        "@media (prefers-reduced-motion: reduce)": {
-                                            transition: `none`,
+                                        p: [`14px`, `16px 18px`],
+                                        boxShadow: isOpen
+                                            ? `0 8px 24px rgba(0,0,0,0.12)`
+                                            : `0 1px 2px rgba(0,0,0,0.10)`,
+                                        transition: `box-shadow .2s ease, border-color .2s ease`,
+                                        "@media (hover: hover)": {
+                                            "&:hover": {
+                                                boxShadow: hasDetails
+                                                    ? `0 8px 24px rgba(0,0,0,0.12)`
+                                                    : `0 1px 2px rgba(0,0,0,0.10)`,
+                                                borderColor: hasDetails ? `primary` : `divide`,
+                                            },
                                         },
                                     }}
                                 >
@@ -237,19 +285,19 @@ const Timeline = ({ items }: TimelineProps) => {
                                             gap: `8px`,
                                         }}
                                     >
-                                        <span
-                                            className="tl-period"
+                                        <h3
+                                            id={titleId}
+                                            className="title"
                                             sx={{
-                                                display: `inline-block`,
-                                                fontSize: `13px`,
+                                                color: `heading`,
                                                 fontWeight: 700,
-                                                letterSpacing: `0.04em`,
-                                                textTransform: `uppercase`,
-                                                color: `primary`,
+                                                fontSize: [`17px`, `21px`],
+                                                lineHeight: 1.3,
+                                                m: 0,
                                             }}
                                         >
-                                            {item.period}
-                                        </span>
+                                            {item.role}
+                                        </h3>
                                         {hasDetails && (
                                             <span
                                                 className="tl-chevron"
@@ -258,7 +306,10 @@ const Timeline = ({ items }: TimelineProps) => {
                                                     display: `inline-flex`,
                                                     alignItems: `center`,
                                                     justifyContent: `center`,
-                                                    color: `secondary`,
+                                                    flexShrink: 0,
+                                                    mt: `4px`,
+                                                    color: isOpen ? `primary` : `secondary`,
+                                                    transform: isOpen ? `rotate(180deg)` : `rotate(0deg)`,
                                                     transition: `transform .25s ease, color .2s ease`,
                                                 }}
                                             >
@@ -277,68 +328,73 @@ const Timeline = ({ items }: TimelineProps) => {
                                             </span>
                                         )}
                                     </div>
-                                    <h3
-                                        id={titleId}
-                                        className="title"
-                                        sx={{
-                                            color: `heading`,
-                                            fontWeight: 700,
-                                            fontSize: `21px`,
-                                            lineHeight: 1.3,
-                                            mt: `4px`,
-                                            mb: 0,
-                                        }}
-                                    >
-                                        {item.role}
-                                    </h3>
                                     <div
                                         sx={{
                                             display: `flex`,
                                             flexWrap: `wrap`,
                                             alignItems: `center`,
-                                            gap: `8px`,
+                                            gap: `6px`,
                                             color: `secondary`,
-                                            fontSize: `16px`,
-                                            mt: `2px`,
+                                            fontSize: [`14px`, `16px`],
+                                            mt: `4px`,
                                         }}
                                     >
                                         <span>{item.company}</span>
                                         {item.location && (
-                                            <span sx={{ fontSize: `14px`, opacity: 0.85 }}>
+                                            <span sx={{ fontSize: [`13px`, `14px`], opacity: 0.85 }}>
                                                 • 📍 {item.location}
                                             </span>
                                         )}
                                     </div>
                                     {item.summary && (
-                                        <p sx={{ color: `text`, fontSize: `19px`, lineHeight: 1.55, mt: `10px`, mb: 0 }}>
+                                        <p
+                                            sx={{
+                                                color: `text`,
+                                                fontSize: [`15px`, `19px`],
+                                                lineHeight: 1.55,
+                                                mt: `10px`,
+                                                mb: 0,
+                                            }}
+                                        >
                                             {item.summary}
                                         </p>
                                     )}
 
-                                    {hasDetails && (
+                                    {hasDetails && isOpen && (
                                         <div
                                             id={detailId}
                                             className="tl-detail"
-                                            aria-hidden={!isOpen}
                                             sx={{
-                                                maxHeight: 0,
-                                                overflow: `hidden`,
-                                                opacity: 0,
-                                                mt: 0,
-                                                pt: 0,
-                                                borderTop: `1px dashed transparent`,
-                                                transition: `max-height .35s ease, opacity .25s ease, margin .3s ease, padding .3s ease, border-color .3s ease`,
+                                                mt: `14px`,
+                                                pt: `14px`,
+                                                borderTop: `1px dashed`,
+                                                borderTopColor: `divide`,
                                             }}
                                         >
                                             {item.description && (
-                                                <p sx={{ color: `text`, fontSize: `18px`, lineHeight: 1.55, m: `0 0 10px` }}>
+                                                <p
+                                                    sx={{
+                                                        color: `text`,
+                                                        fontSize: [`15px`, `18px`],
+                                                        lineHeight: 1.55,
+                                                        m: `0 0 10px`,
+                                                    }}
+                                                >
                                                     {item.description}
                                                 </p>
                                             )}
                                             {item.highlights && item.highlights.length > 0 && (
-                                                <ul sx={{ m: `0 0 12px`, pl: `20px` }}>
+                                                <ul sx={{ m: `0 0 12px`, pl: [`18px`, `20px`] }}>
                                                     {item.highlights.map((h, i) => (
-                                                        <li key={i} sx={{ color: `text`, fontSize: `18px`, lineHeight: 1.55, m: `6px 0` }}>
+                                                        <li
+                                                            key={i}
+                                                            sx={{
+                                                                color: `text`,
+                                                                fontSize: [`15px`, `18px`],
+                                                                lineHeight: 1.55,
+                                                                m: `6px 0`,
+                                                            }}
+                                                        >
                                                             {h}
                                                         </li>
                                                     ))}
@@ -353,7 +409,7 @@ const Timeline = ({ items }: TimelineProps) => {
                                                                 display: `inline-block`,
                                                                 bg: `muted`,
                                                                 color: `primary`,
-                                                                fontSize: `13px`,
+                                                                fontSize: [`12px`, `13px`],
                                                                 fontWeight: 600,
                                                                 px: `10px`,
                                                                 py: `4px`,
