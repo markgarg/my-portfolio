@@ -3,6 +3,7 @@ import type { HeadFC, PageProps } from "gatsby"
 import { jsx, Heading } from "theme-ui"
 import Layout from "@lekoarts/gatsby-theme-minimal-blog/src/components/layout"
 import Seo from "@lekoarts/gatsby-theme-minimal-blog/src/components/seo"
+import StructuredData, { createPersonSchema } from "../../../components/SEO/StructuredData"
 
 export type MBPageProps = {
   page: {
@@ -34,10 +35,12 @@ export const Head: HeadFC<MBPageProps> = ({ data: { page } }) => {
   if (isAboutPage) {
     return (
       <Seo
-        title="About Rohit Macherla | Salesforce Architect"
-        description="Salesforce architect and engineering leader specialising in scalable platforms, observability, CI/CD, and AI adoption."
+        title="About Rohit Macherla — Lead Developer & Salesforce Architect"
+        description="Lead Developer and Salesforce Architect in London with 20+ years of experience building CRM for scalable streaming platforms, enterprise observability, CI/CD, and AI workflows."
         pathname={page.slug}
-      />
+      >
+        <StructuredData person={createPersonSchema()} />
+      </Seo>
     )
   }
 

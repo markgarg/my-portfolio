@@ -1,7 +1,6 @@
 import React from "react"
-import { Helmet } from "react-helmet"
 
-interface PersonSchema {
+export interface PersonSchema {
   "@context": "https://schema.org"
   "@type": "Person"
   name: string
@@ -14,10 +13,19 @@ interface PersonSchema {
     "@type": "Organization"
     name: string
   }
+  alumniOf?: {
+    "@type": "CollegeOrUniversity"
+    name: string
+  }
+  hasCredential?: {
+    "@type": "EducationalOccupationalCredential"
+    name: string
+    credentialCategory?: string
+  }[]
   knowsAbout?: string[]
 }
 
-interface ArticleSchema {
+export interface ArticleSchema {
   "@context": "https://schema.org"
   "@type": "BlogPosting"
   headline: string
@@ -37,7 +45,7 @@ interface ArticleSchema {
   }
 }
 
-interface WebsiteSchema {
+export interface WebsiteSchema {
   "@context": "https://schema.org"
   "@type": "Website"
   name: string
@@ -65,15 +73,15 @@ interface StructuredDataProps {
 
 const StructuredData = ({ person, article, website }: StructuredDataProps) => {
   const schemas = []
-  
+
   if (person) {
     schemas.push(person)
   }
-  
+
   if (article) {
     schemas.push(article)
   }
-  
+
   if (website) {
     schemas.push(website)
   }
@@ -81,17 +89,17 @@ const StructuredData = ({ person, article, website }: StructuredDataProps) => {
   if (schemas.length === 0) return null
 
   return (
-    <Helmet>
+    <>
       {schemas.map((schema, index) => (
         <script
           key={index}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schema)
+            __html: JSON.stringify(schema),
           }}
         />
       ))}
-    </Helmet>
+    </>
   )
 }
 
@@ -102,27 +110,71 @@ export const createPersonSchema = (overrides: Partial<PersonSchema> = {}): Perso
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Rohit Macherla",
-  jobTitle: "Salesforce Developer & Solutions Architect",
-  description: "Passionate software developer with expertise in Salesforce, Java, Python, React, and Scala. Solves business problems with technology.",
-  url: "https://rohitmacherla.com",
+  jobTitle: "Lead Developer & Salesforce Architect",
+  description:
+    "Lead Developer and Salesforce Architect with 20+ years of software engineering experience in high-volume enterprise platforms, observability, CI/CD, and AI adoption.",
+  url: "https://rohitmacherla.com/about",
   sameAs: [
     "https://github.com/markgarg",
     "https://www.linkedin.com/in/rohit-macherla",
     "https://stackexchange.com/users/183803/markgarg",
-    "https://trailblazer.me/id/rmacherla1"
+    "https://trailblazer.me/id/rmacherla1",
+  ],
+  worksFor: {
+    "@type": "Organization",
+    name: "Sky",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Osmania University",
+  },
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Salesforce Certified Application Architect",
+      credentialCategory: "certification",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Salesforce Certified Platform Data Architect",
+      credentialCategory: "certification",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Salesforce Certified Platform Sharing and Visibility Architect",
+      credentialCategory: "certification",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Salesforce Certified Platform Developer II",
+      credentialCategory: "certification",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Salesforce Certified Platform Developer",
+      credentialCategory: "certification",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Salesforce Certified Platform App Builder",
+      credentialCategory: "certification",
+    },
   ],
   knowsAbout: [
-    "Salesforce",
+    "Salesforce Architecture",
+    "Enterprise Software Engineering",
+    "Observability",
+    "Prometheus",
+    "Datadog",
+    "CI/CD",
+    "GitHub Actions",
     "Java",
-    "Python", 
-    "React",
-    "JavaScript",
-    "TypeScript",
+    "Python",
     "Node.js",
-    "Software Architecture",
-    "Cloud Computing"
+    "React",
+    "Scala",
   ],
-  ...overrides
+  ...overrides,
 })
 
 export const createWebsiteSchema = (overrides: Partial<WebsiteSchema> = {}): WebsiteSchema => ({
@@ -133,7 +185,7 @@ export const createWebsiteSchema = (overrides: Partial<WebsiteSchema> = {}): Web
   url: "https://rohitmacherla.com",
   author: {
     "@type": "Person",
-    name: "Rohit Macherla"
+    name: "Rohit Macherla",
   },
-  ...overrides
+  ...overrides,
 })
